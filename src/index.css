@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+:root{
+  /* --primary:#101820; */
+  --primary:#000F19;
+  --secondary:#fee715;
+}
+
+body{
+ background-color: var(--primary); 
+}
+
+button:hover{
+  opacity: 0.8;
+}
+
+/* .typeRadios{
+  position: relative;
+  padding: 4rem;
+}
+
+.typeRadios:checked::after{
+  content: '✔';
+  color: blue;
+  position: absolute;
+  font-size: 12px;
+} */
+
+button:disabled{
+  opacity: 0.2;
+  cursor: not-allowed;
+}
