@@ -31,7 +31,6 @@ const CountdownButton = ({ targetDate }) => {
 
     return () => clearInterval(interval);
   }, [targetDate]);
-
   const { days, hours, minutes, seconds } = timeLeft;
 
   return (
