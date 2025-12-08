@@ -1,18 +1,39 @@
 @import "tailwindcss";
 
-:root{
+* {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+}
+
+:root {
   /* --primary:#101820; */
-  --primary:#000F19;
-  --secondary:#fee715;
+  --primary: #000f19;
+  --secondary: #fee715;
+  --tertiary: #e0e0e0;
 }
 
-body{
- background-color: var(--primary); 
+@theme {
+  --color-primary: #000f19;
+  --color-secondary: #fee715;
+  --color-tertiary: #e0e0e0;
 }
 
-button:hover{
+body {
+  /* background-color: var(--primary);  */
+  background-image: url("/waitlistUi.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+button:hover {
   opacity: 0.8;
 }
+
+button:disabled:hover{
+  opacity:0.2;
+}
+
 
 /* .typeRadios{
   position: relative;
@@ -26,7 +47,7 @@ button:hover{
   font-size: 12px;
 } */
 
-button:disabled{
+:disabled {
   opacity: 0.2;
   cursor: not-allowed;
 }

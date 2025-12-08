@@ -12,7 +12,7 @@ const App = () => {
         <Routes>
          <Route path='/' element={<Waitlist/>}/>
         </Routes>
-        <Toaster richColors position="top-right" expand closeButton visibleToasts={1}/>
+        <Toaster   expand closeButton visibleToasts={1}/>
       </BrowserRouter>
     </>
   )
