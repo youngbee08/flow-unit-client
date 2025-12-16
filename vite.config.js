@@ -17,6 +17,16 @@ export default defineConfig({
       ],
       workbox: {
         navigateFallback: "/offline.html",
+        runtimeCaching: [
+          {
+            urlPattern: /\/dashboard\/overview/,
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "dashboard-cache",
+              networkTimeoutSeconds: 3,
+            },
+          },
+        ],
       },
       manifest: {
         name: "FlowUnit",
