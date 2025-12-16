@@ -1,29 +1,64 @@
-import React from 'react'
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
-import Signup from './pages/Signup'
-import { Toaster } from 'sonner'
-import Main from './pages/Dashboard/Main'
-import Overview from './components/section/Overview'
-import Tasks from './components/section/Tasks'
-import Delegators from './components/section/Delegators'
-import Profile from './components/section/Profile'
-// import './index.css'
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import { Toaster } from "sonner";
+import Login from "./pages/auth/Login";
+import ProtectedRoute from "./helpers/ProtectedRoute";
+import DashboardsLayout from "./layouts/DashboardsLayout";
+import Overview from "./pages/user/Overview";
+import Tasks from "./pages/user/Tasks";
+import Projects from "./pages/user/Projects";
+import Teams from "./pages/user/Teams";
 
 const App = () => {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Signup/>}/>
-          <Route path='/overview' element={<Main children={<Overview/>}/>}/>
-          <Route path='/tasks' element={<Main children={<Tasks/>}/>}/>
-          <Route path='/delegators' element={<Main children={<Delegators/>}/>}/>
-          <Route path='/profile' element={<Main children={<Profile/>}/>}/>
-        </Routes>
-        <Toaster richColors position="top-right" expand closeButton visibleToasts={1}/>
-      </BrowserRouter>
+      <Routes>
+        <Route index element={<Login />} />
+        <Route
+          path="/dashboard/overview"
+          element={
+            <ProtectedRoute>
+              <DashboardsLayout children={<Overview />} pageName={"Overview"} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/tasks"
+          element={
+            <ProtectedRoute>
+              <DashboardsLayout
+                children={<Tasks />}
+                pageName={"Assigned Tasks"}
+              />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/projects"
+          element={
+            <ProtectedRoute>
+              <DashboardsLayout
+                children={<Projects />}
+                pageName={"All Projects"}
+              />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/team"
+          element={
+            <ProtectedRoute>
+              <DashboardsLayout
+                children={<Teams />}
+                pageName={"Team Management"}
+              />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+      <Toaster expand closeButton visibleToasts={3} />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

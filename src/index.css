@@ -1,32 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 @import "tailwindcss";
 
-:root{
-  /* --primary:#101820; */
-  --primary:#000F19;
-  --secondary:#fee715;
+@theme {
+  --color-primary: #122239;
+  --color-secondary: #fee715;
+  --color-tetiary: #757E8D;
 }
 
-body{
- background-color: var(--primary); 
+* {
+  font-family: "Nunito", sans-serif;
+  font-style: normal;
 }
 
-button:hover{
-  opacity: 0.8;
+.no-scrollbar::-webkit-scrollbar {
+  @apply hidden;
 }
 
-/* .typeRadios{
-  position: relative;
-  padding: 4rem;
+.styled-scrollbar::-webkit-scrollbar {
+  @apply lg:w-2 w-1 h-1;
 }
 
-.typeRadios:checked::after{
-  content: '✔';
-  color: blue;
-  position: absolute;
-  font-size: 12px;
-} */
+.styled-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-[#cbd5e1] rounded-full;
+}
 
-button:disabled{
-  opacity: 0.2;
+:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
+}
+
+.borderPrimary {
+  border-color: #2f531810;
+}
+
+.textPrimary {
+  @apply text-primary;
+}
+
+.bgPrimary {
+  @apply bg-primary;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }
