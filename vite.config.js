@@ -17,27 +17,19 @@ export default defineConfig({
       ],
       workbox: {
         navigateFallback: "/offline.html",
-        runtimeCaching: [
-          {
-            urlPattern: /\/dashboard\/overview/,
-            handler: "NetworkFirst",
-            options: {
-              cacheName: "dashboard-cache",
-              networkTimeoutSeconds: 3,
-            },
-          },
-        ],
       },
       manifest: {
         name: "FlowUnit",
-        short_name: "FU",
-        start_url: "/dashboard/overview",
+        short_name: "FlowUnit",
+        description:
+          "FlowUnit is a project management solution designed to streamline team collaboration and productivity. It brings projects, tasks, and communication together in a single, intuitive workspace, empowering teams to work efficiently and stay aligned.",
+        start_url: "/",
         display: "standalone",
         background_color: "#ffffff",
         theme_color: "#757E8D",
         icons: [
           {
-            src: "/dark_logo_text-rbg.png",
+            src: "/dark_logo_circled.png",
             sizes: "192x192",
             type: "image/png",
           },
