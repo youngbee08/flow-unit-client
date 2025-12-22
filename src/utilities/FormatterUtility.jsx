@@ -51,3 +51,44 @@ export function formatUnderScores(input, capitalize = true) {
 export function getInitials(firstName, lastName) {
   return firstName.trim()[0].toUpperCase() + lastName.trim()[0].toUpperCase();
 }
+
+export function formatSmartDate(input) {
+  const date = new Date(input);
+  const now = new Date();
+  const startOfToday = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate()
+  );
+
+  const startOfDate = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate()
+  );
+
+  const ONE_DAY = 24 * 60 * 60 * 1000;
+  const diffDays = Math.round(
+    (startOfDate.getTime() - startOfToday.getTime()) / ONE_DAY
+  );
+
+  if (diffDays === -1) return "Yesterday";
+  if (diffDays === 0) return "Today";
+  if (diffDays === 1) return "Tomorrow";
+
+  if (diffDays >= -7 && diffDays < -1) return "Last week";
+  if (diffDays <= 7 && diffDays > 1) return "Next week";
+
+  const sameYear = date.getFullYear() === now.getFullYear();
+
+  const options = {
+    month: "short",
+    day: "numeric",
+  };
+
+  if (!sameYear) {
+    options.year = "numeric";
+  }
+
+  return date.toLocaleDateString("en-US", options);
+}

@@ -8,16 +8,16 @@ const SideBar = () => {
   const backupUser = localStorage.getItem("user");
   const user = stateUser || backupUser;
   return (
-    <div className="h-full w-full bg-primary rounded-r-2xl p-4 flex flex-col">
+    <div className="h-full w-full bg-primary p-4 flex flex-col">
       <div className="flex items-center gap-3 mb-8">
         <img
-          src={user.profile}
+          src={user?.profile}
           alt="User avatar"
           className="w-10 h-10 rounded-full object-cover"
         />
         <div className="leading-tight">
           <p className="text-sm text-white">Hello!</p>
-          <h4 className="font-semibold capitalize text-white">{user.name}</h4>
+          <h4 className="font-semibold capitalize text-white">{user?.name}</h4>
         </div>
       </div>
 

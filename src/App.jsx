@@ -8,6 +8,7 @@ import Overview from "./pages/user/Overview";
 import Tasks from "./pages/user/Tasks";
 import Projects from "./pages/user/Projects";
 import Teams from "./pages/user/Teams";
+import SingleProject from "./pages/user/SingleProject";
 
 const App = () => {
   return (
@@ -40,6 +41,17 @@ const App = () => {
               <DashboardsLayout
                 children={<Projects />}
                 pageName={"All Projects"}
+              />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/projects/:id"
+          element={
+            <ProtectedRoute>
+              <DashboardsLayout
+                children={<SingleProject />}
+                pageName={"Project Details"}
               />
             </ProtectedRoute>
           }

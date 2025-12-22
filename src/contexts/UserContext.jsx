@@ -7,6 +7,12 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [dashboardMetrics, setDashboardMetrics] = useState({
+    total_projects: 0,
+    pending_tasks: 0,
+    completed_projects: 0,
+  });
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   useEffect(() => {
     setupInterceptors(logout);
@@ -17,19 +23,22 @@ export const UserProvider = ({ children }) => {
       setLoading(true);
       const storedToken = localStorage.getItem("token");
       const storedUser = localStorage.getItem("user");
+      const storedMetrics = localStorage.getItem("dashboardMetrics");
       if (!storedToken || !storedUser) {
         setLoading(false);
         return;
       }
       try {
         const parsedUser = JSON.parse(storedUser);
+        const parsedMetrics = JSON.parse(storedMetrics);
         setToken(storedToken);
         setUser(parsedUser);
+        setDashboardMetrics(parsedMetrics);
         await refreshUser(storedToken);
       } catch (error) {
         console.warn("Invalid or expired session. Clearing...");
         console.log("errorDuringInitialization", error);
-        logout();
+        logout({ redirect: false });
       } finally {
         setLoading(false);
       }
@@ -43,51 +52,71 @@ export const UserProvider = ({ children }) => {
     refreshUser(token);
   }
 
-  async function refreshUser(token) {
-    if (!token) {
-      throw new Error("No token!");
+  async function refreshUser(token) {    
+    if (!token || isLoggingOut) {
+      throw new Error("No token!, or you are logging out already");
     }
     try {
       const res = await api.get("/user/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.status === 200) {
-        setUser(res.data.user);
-        localStorage.setItem("user", JSON.stringify(res.data.user));
+        const { user, pending_tasks, completed_projects, total_projects } =
+          res.data;
+        setUser(user);
+        setDashboardMetrics({
+          pending_tasks,
+          total_projects,
+          completed_projects,
+        });
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem(
+          "dashboardMetrics",
+          JSON.stringify({
+            pending_tasks,
+            total_projects,
+            completed_projects,
+          })
+        );
       }
     } catch (error) {
       console.log("errorRefreshing-user", error);
       if (error.response?.status === 401) {
-        logout();
+        logout({ redirect: false });
       }
     }
   }
-
-  async function logout() {
+  async function logout({ redirect = false } = {}) {
+    if (isLoggingOut) return;
+    setIsLoggingOut(true);
     try {
-      const res = await api.put("/auth/logout");
-      if (res.status === 200) {
-        const loading = toast.loading("Logging out");
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        setToken(null);
-        setUser(null);
-        setTimeout(() => {
-          toast.success("Logged out successfull");
-          setTimeout(() => {
-            toast.dismiss(loading);
-          }, 1000);
-        }, 2000);
-        window.location.href = "/";
-      }
-    } catch (error) {
-      console.log("errorLogging-out", error);
+      await api.put("/auth/logout").catch(() => {});
+    } catch {}
+
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("dashboardMetrics");
+    setToken(null);
+    setUser(null);
+
+    toast.success("Logged out successfully");
+    if (redirect) {
+      window.location.href = "/";
     }
+    setIsLoggingOut(false);
   }
 
   const isLoggedIn = !!token;
 
-  const value = { refreshUser, user, token, loading, login, isLoggedIn };
+  const value = {
+    refreshUser,
+    user,
+    token,
+    loading,
+    login,
+    isLoggedIn,
+    dashboardMetrics,
+  };
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 

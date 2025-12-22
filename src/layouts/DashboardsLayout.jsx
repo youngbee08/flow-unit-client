@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import SideBar from "../components/navs/SideBar";
 import BottomNav from "../components/navs/BottomNav";
 import TopNav from "../components/navs/TopNav";
+import { useUser } from "../contexts/UserContext";
 
 const pageVariants = {
   initial: { opacity: 0, y: 16 },
@@ -21,12 +22,13 @@ const bottomNavVariants = {
 };
 
 const DashboardsLayout = ({ children, pageName }) => {
+
   useEffect(() => {
     document.title = `FlowUnit - ${pageName}`;
   }, [pageName]);
 
   return (
-    <div className="flex w-full h-dvh overflow-hidden relative bg-tetiary/30">
+    <div className="flex w-full h-dvh overflow-hidden relative bg-tetiary/30 text-primary">
       <motion.aside
         className="hidden lg:flex w-[23%] flex-shrink-0 sticky top-0 h-full z-40"
         variants={sidebarVariants}
@@ -43,7 +45,7 @@ const DashboardsLayout = ({ children, pageName }) => {
       <AnimatePresence mode="wait">
         <motion.main
           key={pageName}
-          className="flex-1 overflow-y-auto px-4 py-5 flex-col"
+          className="flex-1 no-scrollbar pt-15 overflow-y-auto flex-col"
           variants={pageVariants}
           initial="initial"
           animate="animate"
@@ -54,7 +56,7 @@ const DashboardsLayout = ({ children, pageName }) => {
           }}
         >
           <TopNav pageName={pageName} />
-          {children}
+          <div className="px-4 pt-5 pb-18">{children}</div>
         </motion.main>
       </AnimatePresence>
 

@@ -27,7 +27,7 @@ export const setupInterceptors = (logout) => {
         toast.error("No internet or server down");
       } else if (error.response?.status === 401) {
         toast.error("Session expired. Logging out...");
-        logout();
+        logout({ redirect: false });
       }
       return Promise.reject(error);
     }
