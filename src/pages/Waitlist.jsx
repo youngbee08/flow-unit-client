@@ -8,7 +8,6 @@ import {
 } from "react-icons/ri";
 import { useState } from "react";
 import { toast } from "sonner";
-import CountdownButton from "../components/UI/CountdownButton";
 const serverUrl = import.meta.env.VITE_SERVER_URL;
 const Waitlist = () => {
   const [joiningWaitlist, setJoiningWaitlist] = useState(false);
@@ -42,7 +41,6 @@ const Waitlist = () => {
       setJoiningWaitlist(false);
     }
   };
-  const nextJan1 = new Date(`January 1, ${new Date().getFullYear() + 1} 00:00:00`).getTime();
 
   return (
     <section className="flex flex-col gap-25 lg:gap-14 h-screen bg-transparent px-8 py-7 text-tertiary">
@@ -51,7 +49,11 @@ const Waitlist = () => {
           Flow<span className="font-bold">Unit</span>
         </h3>
         <div className="">
-          <CountdownButton targetDate={nextJan1}/>
+         <button
+          className="bg-tertiary w-[50%] lg:w-[40%] text-primary font-medium text-sm px-3 lg:px-3 py-2 lg:py-3 cursor-pointer transition-all rounded-[18px]"
+          >
+              It's Time!
+          </button> 
         </div>
       </nav>
       <main className="flex w-full flex-col justify-center items-center gap-18 lg:gap-12">
@@ -96,7 +98,7 @@ const Waitlist = () => {
               disabled={joiningWaitlist}
             />
             <button
-              disabled={joiningWaitlist}
+              disabled={true}
               onClick={joinWaitlist}
               className="bg-tertiary w-[50%] lg:w-[40%] text-primary font-medium text-sm px-3 lg:px-3 py-2 lg:py-3 cursor-pointer transition-all rounded-[18px]"
             >
