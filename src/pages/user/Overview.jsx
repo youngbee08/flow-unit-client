@@ -18,7 +18,6 @@ import InviteToTeam from "../../components/modals/InviteToTeam";
 const Overview = () => {
   const {
     dashboardMetrics,
-    user: contextUser,
     refreshUser,
     token: contextToken,
   } = useUser();
@@ -26,15 +25,15 @@ const Overview = () => {
   const storedToken = localStorage.getItem("token");
   const token = contextToken || storedToken;
 
-  const storedUser = JSON.parse(localStorage.getItem("user"));
   const metrics = dashboardMetrics || storedMetrics;
-  const user = contextUser || storedUser;
   const [assignedTasks, setAssignedTasks] = useState([]);
   const [fetchingAssignedTasks, setFetchingAssignedTasks] = useState(false);
   const [team, setTeam] = useState(null);
   const [teamMembers, setTeamMembers] = useState([]);
   const [fetchingTeamMembers, setFetchingTeamMembers] = useState(false);
   const [showInviteModal, setShowInviteModal] = useState(false);
+  const [projects, setProjects] = useState([]);
+  const [loadingProjects, setLoadingProjects] = useState(false);
   const overviewItems = [
     {
       title: "Total Projects",
@@ -103,9 +102,30 @@ const Overview = () => {
     }
   };
 
+  
+  const fetchProjects = async () => {
+    setLoadingProjects(true);
+    try {
+      const res = await api.get("/user/myProjects?type=all");
+      if (res.status === 200) {
+        setProjects(res.data.projects);
+      }
+    } catch (error) {
+      console.log("errorfetchingProjects", error);
+      const errmessage =
+        error.response.data.message ||
+        error.message ||
+        "Failed to fetch project";
+      toast.error(errmessage);
+    } finally {
+      setLoadingProjects(false);
+    }
+  };
+
   useEffect(() => {
     fetchAssignedTasks();
     fetchTeamMembers();
+    fetchProjects()
   }, []);
 
   useEffect(() => {
@@ -199,16 +219,18 @@ const Overview = () => {
             )}
           </div>
         </div>
-        {user?.projects?.length > 0 && (
-          <div className="w-full flex flex-col gap-5">
-            <h2 className="text-lg lg:text-xl font-bold">My Projects</h2>
-            <div className="grid lg:grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 grid-row-2">
-              {user.projects.slice(0, 6).map((project, idx) => (
-                <ProjectCard project={project} key={idx} />
-              ))}
-            </div>
-          </div>
-        )}
+        {loadingProjects
+          ? ""
+          : projects.length > 0 && (
+              <div className="w-full flex flex-col gap-5">
+                <h2 className="text-lg lg:text-xl font-bold">My Projects</h2>
+                <div className="grid lg:grid-cols-3 gap-4 sm:grid-cols-2 md:grid-cols-2 grid-row-2">
+                  {projects.slice(0, 6).map((project, idx) => (
+                    <ProjectCard project={project} key={idx} />
+                  ))}
+                </div>
+              </div>
+            )}
       </div>
       <InviteToTeam
         isOpen={showInviteModal}

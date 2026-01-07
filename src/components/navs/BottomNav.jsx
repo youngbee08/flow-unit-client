@@ -34,7 +34,8 @@ const BottomNav = () => {
         })}
       </div>
 
-      <button
+      <NavLink
+        to={"/dashboard/projects/new"}
         className="
           w-12 h-12 sm:w-14 sm:h-14
           bg-white text-primary
@@ -45,7 +46,7 @@ const BottomNav = () => {
         "
       >
         <FaPlus className="text-lg sm:text-xl" />
-      </button>
+      </NavLink>
 
       <div className="flex flex-1 justify-around">
         {navItems.slice(2).map((item) => {

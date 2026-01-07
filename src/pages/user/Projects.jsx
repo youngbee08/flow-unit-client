@@ -1,17 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProjectCard from "../../components/cards/ProjectCard";
 import { useUser } from "../../contexts/UserContext";
 import { GiPaperPlane } from "react-icons/gi";
 import { FaCheck } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+import api from "../../helpers/api";
+import { toast } from "sonner";
+import ProjectDashboardSkeleton from "../../components/skeletons/ProjectDashboardSkeleton";
 
 const Projects = () => {
-  const { user: contextUser, dashboardMetrics } = useUser();
+  const { dashboardMetrics } = useUser();
   const storedMetrics = JSON.parse(localStorage.getItem("dashboardMetrics"));
-  const storedUser = JSON.parse(localStorage.getItem("user"));
   const metrics = dashboardMetrics || storedMetrics;
-  const user = contextUser || storedUser;
+  const navigate = useNavigate();
+  const [projects, setProjects] = useState([]);
+  const [loadingProjects, setLoadingProjects] = useState(false);
 
-  const projects = user?.projects || [];
+  const fetchProjects = async () => {
+    setLoadingProjects(true);
+    try {
+      const res = await api.get("/user/myProjects?type=all");
+      if (res.status === 200) {
+        setProjects(res.data.projects);
+      }
+    } catch (error) {
+      // console.log("errorfetchingProjects", error);
+      const errmessage =
+        error.response.data.message ||
+        error.message ||
+        "Failed to fetch project";
+      toast.error(errmessage);
+    } finally {
+      setLoadingProjects(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
   const statuses = [
     {
@@ -34,7 +60,9 @@ const Projects = () => {
     },
   ];
 
-  return projects.length === 0 ? (
+  return loadingProjects ? (
+    <ProjectDashboardSkeleton />
+  ) : projects.length === 0 ? (
     <div className="min-h-[85vh] flex flex-col items-center justify-center px-6">
       <div className="text-center max-w-lg">
         <div className="relative inline-block mb-12">
@@ -68,16 +96,19 @@ const Projects = () => {
           </div>
         </div>
 
-        <h2 className="text-xl lg:text-3xl font-bold mb-4">
+        <h2 className="text-base lg:text-2xl font-bold mb-4">
           No Projects Yet? Let's get started!
         </h2>
-        <p className="text-tetiary mb-10 leading-relaxed lg:text-base text-sm">
+        <p className="text-tetiary mb-10 leading-relaxed lg:text-sm text-xs">
           It looks like your workspace is fresh. Create your first project to
           organize tasks, collaborate with your team, and track progress
           effectively.
         </p>
 
-        <button className="bg-primary text-white px-8 py-3 rounded-xl font-semibold hover:bg-primary transition flex items-center gap-3 mx-auto cursor-pointer shadow-lg text-sm lg:text-lg">
+        <button
+          onClick={() => navigate("/dashboard/projects/new")}
+          className="bg-primary text-white px-8 py-3 rounded-xl font-semibold hover:bg-primary transition flex items-center gap-3 mx-auto cursor-pointer shadow-lg text-xs lg:text-sm"
+        >
           <div className="bg-white text-primary p-1 rounded-full">
             <svg
               width="15"

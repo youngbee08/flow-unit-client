@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import SideBar from "../components/navs/SideBar";
 import BottomNav from "../components/navs/BottomNav";
 import TopNav from "../components/navs/TopNav";
-import { useUser } from "../contexts/UserContext";
 
 const pageVariants = {
   initial: { opacity: 0, y: 16 },
@@ -21,8 +20,7 @@ const bottomNavVariants = {
   visible: { y: 0, opacity: 1 },
 };
 
-const DashboardsLayout = ({ children, pageName }) => {
-
+const DashboardsLayout = ({ children, pageName, pageInfo, pageUtility }) => {
   useEffect(() => {
     document.title = `FlowUnit - ${pageName}`;
   }, [pageName]);
@@ -45,7 +43,9 @@ const DashboardsLayout = ({ children, pageName }) => {
       <AnimatePresence mode="wait">
         <motion.main
           key={pageName}
-          className="flex-1 no-scrollbar pt-15 overflow-y-auto flex-col"
+          className={`flex-1 no-scrollbar pt-15 overflow-y-auto flex-col ${
+            pageInfo ? "lg:pt-35 pt-15" : "pt-15"
+          }`}
           variants={pageVariants}
           initial="initial"
           animate="animate"
@@ -55,8 +55,12 @@ const DashboardsLayout = ({ children, pageName }) => {
             ease: [0.16, 1, 0.3, 1],
           }}
         >
-          <TopNav pageName={pageName} />
-          <div className="px-4 pt-5 pb-18">{children}</div>
+          <TopNav
+            pageName={pageName}
+            pageInfo={pageInfo ? pageInfo : ""}
+            pageUtility={pageUtility?.active ? pageUtility : null}
+          />
+          <div className="px-4 pt-5 pb-21">{children}</div>
         </motion.main>
       </AnimatePresence>
 

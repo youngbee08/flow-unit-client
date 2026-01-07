@@ -8,16 +8,16 @@ const TaskCard = ({ task }) => {
     <div className="flex hover:bg-tetiary/30 p-2 rounded-md cursor-pointer transition-all items-center gap-5">
       <div
         className={`p-2 rounded-full text-sm lg:text-lg text-white ${
-          status === "pending" ? "bg-yellow-700" : "bg-primary"
+          status === "todo" ? "bg-yellow-700" : "bg-primary"
         }`}
       >
-        {status === "pending" ? <CiCircleAlert /> : <IoCheckmarkDoneCircle />}
+        {status === "todo" ? <CiCircleAlert /> : <IoCheckmarkDoneCircle />}
       </div>
       <div className="flex flex-col gap-1">
         <h3 className="text-sm lg:text-[16px] font-semibold">{name}</h3>
         <p className="text-tetiary text-xs lg:text-sm font-medium">
-          {description.length > 80
-            ? `${description.slice(0, 80)}...`
+          {description.length > 40
+            ? `${description.slice(0, 40)}...`
             : description}
         </p>
       </div>

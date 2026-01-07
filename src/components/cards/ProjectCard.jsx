@@ -1,6 +1,7 @@
 import React from "react";
 import { formatSmartDate } from "../../utilities/FormatterUtility";
 import { useNavigate } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
 
 const ProjectCard = ({ project }) => {
   const { name, _id, progress = 0, createdAt, dueDate, status } = project;
@@ -20,7 +21,7 @@ const ProjectCard = ({ project }) => {
   return (
     <div
       onClick={() => navigate(`/dashboard/projects/${_id}`, { state: project })}
-      className="flex group cursor-pointer flex-col bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
+      className="flex group cursor-pointer flex-col bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden relative"
     >
       <div className="p-6 flex flex-col gap-6">
         <div className="flex flex-col gap-3">
@@ -28,10 +29,16 @@ const ProjectCard = ({ project }) => {
             {name}
           </h3>
 
+          <div className="absolute right-6 lg:hidden flex">
+            <h4 className="text-xs flex items-center gap-0">
+              View <ArrowUpRight size={12} />
+            </h4>
+          </div>
+
           <div className="w-full">
             <div className="flex justify-between text-sm text-tetiary/80 mb-1">
               <span>Progress</span>
-              <span>{progress}%</span>
+              <span>{Math.round(+progress)}%</span>
             </div>
             <progress
               className="w-full h-2 rounded-full [&::-webkit-progress-value]:bg-primary [&::-webkit-progress-bar]:bg-gray-200 [&::-moz-progress-bar]:bg-primary"

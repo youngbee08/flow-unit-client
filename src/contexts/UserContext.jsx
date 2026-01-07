@@ -52,7 +52,7 @@ export const UserProvider = ({ children }) => {
     refreshUser(token);
   }
 
-  async function refreshUser(token) {    
+  async function refreshUser(token) {
     if (!token || isLoggingOut) {
       throw new Error("No token!, or you are logging out already");
     }
@@ -89,21 +89,27 @@ export const UserProvider = ({ children }) => {
   async function logout({ redirect = false } = {}) {
     if (isLoggingOut) return;
     setIsLoggingOut(true);
+
     try {
-      await api.put("/auth/logout").catch(() => {});
-    } catch {}
+      await api.put("/auth/logout");
+    } catch (error) {
+      console.warn("Server logout failed:", error?.response?.status);
+    } finally {
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      localStorage.removeItem("dashboardMetrics");
 
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    localStorage.removeItem("dashboardMetrics");
-    setToken(null);
-    setUser(null);
+      setToken(null);
+      setUser(null);
 
-    toast.success("Logged out successfully");
-    if (redirect) {
-      window.location.href = "/";
+      toast.success("Logged out successfully");
+
+      if (redirect) {
+        window.location.href = "/";
+      }
+
+      setIsLoggingOut(false);
     }
-    setIsLoggingOut(false);
   }
 
   const isLoggedIn = !!token;
