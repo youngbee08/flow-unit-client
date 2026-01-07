@@ -48,13 +48,7 @@ const Waitlist = () => {
         <h3 className="font-medium text-base sm:text-xl lg:text-2xl text-tertiary">
           Flow<span className="font-bold">Unit</span>
         </h3>
-        <div className="">
-         <button
-          className="bg-tertiary w-[50%] lg:w-[40%] text-primary font-medium text-sm px-3 lg:px-3 py-2 lg:py-3 cursor-pointer transition-all rounded-[18px]"
-          >
-              It's Time!
-          </button> 
-        </div>
+        
       </nav>
       <main className="flex w-full flex-col justify-center items-center gap-18 lg:gap-12">
         <div className="flex flex-col gap-7 items-center">
@@ -95,7 +89,7 @@ const Waitlist = () => {
               name="email"
               placeholder="Enter Your Email"
               className="text-tertiary text-sm lg:text-base font-semibold outline-0 px-2 lg:px-3 border-0 w-[50%] lg:w-[60%]"
-              disabled={joiningWaitlist}
+              disabled={true}
             />
             <button
               disabled={true}
