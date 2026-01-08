@@ -76,153 +76,156 @@ const NewProject = () => {
 
   return (
     <>
-    <form className="flex flex-col gap-6" onSubmit={formik.handleSubmit}>
-      <div className="grid lg:grid-cols-2 w-full gap-x-5 gap-y-2">
-        <div className="flex flex-col gap-2">
-          <label htmlFor="name" className="text-sm lg:text-base font-semibold">
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="e.g. Website Redesign Q4"
-            className="rounded-xl border border-primary px-3 py-3 focus:ring-primary focus:outline-none focus:border-primary transition-all text-tetiary placeholder-slate-400 focus:ring-2"
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.name && formik.errors.name && (
-            <span className="text-xs text-red-600 font-medium">
-              {formik.errors.name}
-            </span>
-          )}
+      <form className="flex flex-col gap-6" onSubmit={formik.handleSubmit}>
+        <div className="grid lg:grid-cols-2 w-full gap-x-5 gap-y-2">
+          <div className="flex flex-col gap-2">
+            <label
+              htmlFor="name"
+              className="text-sm lg:text-base font-semibold"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="e.g. Website Redesign Q4"
+              className="rounded-xl border border-primary px-3 py-3 focus:ring-primary focus:outline-none focus:border-primary transition-all text-tetiary placeholder-slate-400 focus:ring-2"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.name && formik.errors.name && (
+              <span className="text-xs text-red-600 font-medium">
+                {formik.errors.name}
+              </span>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            <label
+              htmlFor="projectType"
+              className="text-sm lg:text-base font-semibold"
+            >
+              Project Type
+            </label>
+            <FormDropdown
+              value={projectOptions}
+              onChange={(val) => {
+                setProjectOptions(val);
+                formik.setFieldValue(
+                  "projectType",
+                  val !== "Select project type" ? val.toLowerCase() : ""
+                );
+                formik.setFieldTouched("projectType", true);
+              }}
+              options={["Select project type", "Team", "Personal"]}
+            />
+            {formik.touched.projectType && formik.errors.projectType && (
+              <span className="text-xs text-red-600 font-medium">
+                {formik.errors.projectType}
+              </span>
+            )}
+          </div>
+        </div>
+        <div className="grid lg:grid-cols-2 w-full gap-x-5 gap-y-2">
+          <div className="flex flex-col gap-2">
+            <label
+              htmlFor="startDate"
+              className="text-sm lg:text-base font-semibold"
+            >
+              Start Date
+            </label>
+            <input
+              type="date"
+              id="startDate"
+              name="startDate"
+              className="rounded-xl border lg:w-auto w-full border-primary px-3 py-3 focus:ring-primary focus:outline-none focus:border-primary transition-all text-tetiary placeholder-slate-400 focus:ring-2"
+              value={formik.values.startDate}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.startDate && formik.errors.startDate && (
+              <span className="text-xs text-red-600 font-medium">
+                {formik.errors.startDate}
+              </span>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            <label
+              htmlFor="dueDate"
+              className="text-sm lg:text-base font-semibold"
+            >
+              Due Date
+            </label>
+            <input
+              type="date"
+              id="dueDate"
+              name="dueDate"
+              className="rounded-xl border lg:w-auto w-full border-primary px-3 py-3 focus:ring-primary focus:outline-none focus:border-primary transition-all text-tetiary placeholder-slate-400 focus:ring-2"
+              value={formik.values.dueDate}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.dueDate && formik.errors.dueDate && (
+              <span className="text-xs text-red-600 font-medium">
+                {formik.errors.dueDate}
+              </span>
+            )}
+          </div>
         </div>
         <div className="flex flex-col gap-2">
           <label
             htmlFor="projectType"
             className="text-sm lg:text-base font-semibold"
           >
-            Project Type
+            Priority Level
           </label>
           <FormDropdown
-            value={projectOptions}
+            value={priorityOptions}
             onChange={(val) => {
-              setProjectOptions(val);
+              setPriorityOptions(val);
               formik.setFieldValue(
-                "projectType",
-                val !== "Select project type" ? val.toLowerCase() : ""
+                "priorityLevel",
+                val !== "Select priority level" ? val.toLowerCase() : ""
               );
-              formik.setFieldTouched("projectType", true);
+              formik.setFieldTouched("priorityLevel", true);
             }}
-            options={["Select project type", "Team", "Personal"]}
+            options={["Select priority level", "High", "Low", "Medium"]}
           />
-          {formik.touched.projectType && formik.errors.projectType && (
+          {formik.touched.priorityLevel && formik.errors.priorityLevel && (
             <span className="text-xs text-red-600 font-medium">
-              {formik.errors.projectType}
-            </span>
-          )}
-        </div>
-      </div>
-      <div className="grid lg:grid-cols-2 w-full gap-x-5 gap-y-2">
-        <div className="flex flex-col gap-2">
-          <label
-            htmlFor="startDate"
-            className="text-sm lg:text-base font-semibold"
-          >
-            Start Date
-          </label>
-          <input
-            type="date"
-            id="startDate"
-            name="startDate"
-            className="rounded-xl border border-primary px-3 py-3 focus:ring-primary focus:outline-none focus:border-primary transition-all text-tetiary placeholder-slate-400 focus:ring-2"
-            value={formik.values.startDate}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.startDate && formik.errors.startDate && (
-            <span className="text-xs text-red-600 font-medium">
-              {formik.errors.startDate}
+              {formik.errors.priorityLevel}
             </span>
           )}
         </div>
         <div className="flex flex-col gap-2">
-          <label
-            htmlFor="dueDate"
-            className="text-sm lg:text-base font-semibold"
-          >
-            Due Date
+          <label htmlFor="name" className="text-sm lg:text-base font-semibold">
+            Description
           </label>
-          <input
-            type="date"
-            id="dueDate"
-            name="dueDate"
-            className="rounded-xl border border-primary px-3 py-3 focus:ring-primary focus:outline-none focus:border-primary transition-all text-tetiary placeholder-slate-400 focus:ring-2"
-            value={formik.values.dueDate}
+          <textarea
+            id="description"
+            name="description"
+            placeholder="Describe the project aim and objectives..."
+            rows={3}
+            className="rounded-xl border border-primary px-3 py-3 focus:ring-primary focus:outline-none focus:border-primary transition-all text-tetiary resize-none placeholder-slate-400 focus:ring-2"
+            value={formik.values.description}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-          />
-          {formik.touched.dueDate && formik.errors.dueDate && (
+          ></textarea>
+          {formik.touched.description && formik.errors.description && (
             <span className="text-xs text-red-600 font-medium">
-              {formik.errors.dueDate}
+              {formik.errors.description}
             </span>
           )}
         </div>
-      </div>
-      <div className="flex flex-col gap-2">
-        <label
-          htmlFor="projectType"
-          className="text-sm lg:text-base font-semibold"
+        <button
+          type="submit"
+          disabled={formik.isSubmitting}
+          className="px-4 py-3 cursor-pointer text-sm lg:text-base font-medium bg-primary text-white rounded-xl"
         >
-          Priority Level
-        </label>
-        <FormDropdown
-          value={priorityOptions}
-          onChange={(val) => {
-            setPriorityOptions(val);
-            formik.setFieldValue(
-              "priorityLevel",
-              val !== "Select priority level" ? val.toLowerCase() : ""
-            );
-            formik.setFieldTouched("priorityLevel", true);
-          }}
-          options={["Select priority level", "High", "Low", "Medium"]}
-        />
-        {formik.touched.priorityLevel && formik.errors.priorityLevel && (
-          <span className="text-xs text-red-600 font-medium">
-            {formik.errors.priorityLevel}
-          </span>
-        )}
-      </div>
-      <div className="flex flex-col gap-2">
-        <label htmlFor="name" className="text-sm lg:text-base font-semibold">
-          Description
-        </label>
-        <textarea
-          id="description"
-          name="description"
-          placeholder="Describe the project aim and objectives..."
-          rows={3}
-          className="rounded-xl border border-primary px-3 py-3 focus:ring-primary focus:outline-none focus:border-primary transition-all text-tetiary resize-none placeholder-slate-400 focus:ring-2"
-          value={formik.values.description}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        ></textarea>
-        {formik.touched.description && formik.errors.description && (
-          <span className="text-xs text-red-600 font-medium">
-            {formik.errors.description}
-          </span>
-        )}
-      </div>
-      <button
-        type="submit"
-        disabled={formik.isSubmitting}
-        className="px-4 py-3 cursor-pointer text-sm lg:text-base font-medium bg-primary text-white rounded-xl"
-      >
-        {formik.isSubmitting ? "Creating Project..." : "Create Project"}
-      </button>
-    </form>
+          {formik.isSubmitting ? "Creating Project..." : "Create Project"}
+        </button>
+      </form>
     </>
   );
 };

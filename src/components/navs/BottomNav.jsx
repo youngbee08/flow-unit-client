@@ -8,7 +8,7 @@ const BottomNav = () => {
     <nav
       className="
       fixed bottom-0 left-0 right-0 
-      bg-primary rounded-t-3xl
+      bg-primary rounded-t-2xl
       px-2 sm:px-4 
       py-2 sm:py-1
       flex items-center justify-between
@@ -24,11 +24,12 @@ const BottomNav = () => {
               key={item.name}
               to={item.path}
               className={({ isActive }) =>
-                `flex flex-col items-center transition-colors
+                `flex flex-col gap-1 items-center transition-colors
                 ${isActive ? "text-white" : "text-tetiary"}`
               }
             >
               <Icon className="text-lg sm:text-xl mb-0.5" />
+              <h5 className="text-xs font-semibold">{item.name}</h5>
             </NavLink>
           );
         })}
@@ -56,11 +57,12 @@ const BottomNav = () => {
               key={item.name}
               to={item.path}
               className={({ isActive }) =>
-                `flex flex-col items-center transition-colors
+                `flex flex-col gap-1 items-center transition-colors
                 ${isActive ? "text-white" : "text-tetiary"}`
               }
             >
               <Icon className="text-lg sm:text-xl mb-0.5" />
+              <h5 className="text-xs font-semibold">{item.name}</h5>
             </NavLink>
           );
         })}

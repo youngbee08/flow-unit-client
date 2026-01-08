@@ -122,6 +122,8 @@ export const UserProvider = ({ children }) => {
     login,
     isLoggedIn,
     dashboardMetrics,
+    logout,
+    isLoggingOut
   };
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

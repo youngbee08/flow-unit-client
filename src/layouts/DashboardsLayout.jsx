@@ -57,8 +57,8 @@ const DashboardsLayout = ({ children, pageName, pageInfo, pageUtility }) => {
         >
           <TopNav
             pageName={pageName}
-            pageInfo={pageInfo ? pageInfo : ""}
-            pageUtility={pageUtility?.active ? pageUtility : null}
+            pageInfo={pageInfo || ""}
+            pageUtility={pageUtility}
           />
           <div className="px-4 pt-5 pb-21">{children}</div>
         </motion.main>

@@ -23,7 +23,7 @@ const TopNav = ({ pageName, pageInfo, pageUtility }) => {
           </h4>
         )}
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
         {pageUtility?.active && (
           <button
             className="text-white text-sm bg-primary font-semibold hidden lg:flex rounded-xl px-4 cursor-pointer py-2.5"
@@ -32,11 +32,15 @@ const TopNav = ({ pageName, pageInfo, pageUtility }) => {
             {pageUtility?.info}
           </button>
         )}
-        {!pageUtility && (
-          <FaBell className="text-lg lg:text-xl cursor-pointer" />
+        {!pageUtility?.active && (
+          <FaBell
+            onClick={() => navigate("/dashboard/notifications")}
+            className="text-lg lg:text-xl cursor-pointer"
+          />
         )}
         <div className="lg:hidden flex items-center gap-3">
           <img
+            onClick={() => navigate("/dashboard/profile-settings")}
             src={user?.profile}
             alt="User avatar"
             className="w-9 h-9 rounded-full object-cover"

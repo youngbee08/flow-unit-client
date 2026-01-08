@@ -11,6 +11,8 @@ import Teams from "./pages/user/Teams";
 import SingleProject from "./pages/user/SingleProject";
 import TaskForm from "./pages/user/TaskForm";
 import NewProject from "./pages/user/NewProject";
+import Notifications from "./pages/user/Notifications";
+import ProfileSettings from "./pages/user/ProfileSettings";
 
 const App = () => {
   return (
@@ -95,6 +97,28 @@ const App = () => {
               <DashboardsLayout
                 children={<Teams />}
                 pageName={"Team Management"}
+              />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/notifications"
+          element={
+            <ProtectedRoute>
+              <DashboardsLayout
+                children={<Notifications />}
+                pageName={"Notifications"}
+              />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/profile-settings"
+          element={
+            <ProtectedRoute>
+              <DashboardsLayout
+                children={<ProfileSettings />}
+                pageName={"Account Settings"}
               />
             </ProtectedRoute>
           }

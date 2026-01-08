@@ -88,7 +88,7 @@ const Tasks = () => {
         setShowDeleteModal(false);
       }
     } catch (error) {
-      console.log("errorDeletingTask", error);
+      // console.log("errorDeletingTask", error);
       const errMessage =
         error.response.data.message || error.message || "Failed to delete task";
       toast.error(errMessage);
