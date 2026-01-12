@@ -5,11 +5,11 @@ import { toast } from "sonner";
 import api from "../../helpers/api";
 
 const InviteToTeam = ({ isOpen, onCancel }) => {
-  if (!isOpen) return null;
   const [username, setUsername] = useState("");
   const [users, setUsers] = useState([]);
   const [fetchingUsers, setFetchingUsers] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [invitingUser, setInvitinguser] = useState(false);
   const findUser = async () => {
     setFetchingUsers(true);
     try {
@@ -18,7 +18,7 @@ const InviteToTeam = ({ isOpen, onCancel }) => {
         setUsers(res.data.users);
       }
     } catch (error) {
-      console.log("error-finding-users", error);
+      // console.log("error-finding-users", error);
       const message =
         error.response.data.message || error.message || "Failed to find users";
       toast.error(message);
@@ -26,6 +26,27 @@ const InviteToTeam = ({ isOpen, onCancel }) => {
       setFetchingUsers(false);
     }
   };
+  const inviteToTeam = async () => {
+    setInvitinguser(true);
+    try {
+      const res = await api.post(`/user/inviteToTeam/${selectedUser._id}`, {
+        invitationInfo:
+          "We would value your contribution and are seeking your consent to include you in our team",
+      });
+      if (res.status === 200) {
+        toast.success(`${selectedUser?.name} has been invited to your team`);
+        onCancel();
+      }
+    } catch (error) {
+      // console.log("errorInvitingUsers", error);
+      const message =
+        error.response.data.message || error.message || "Failed to find users";
+      toast.error(message);
+    } finally {
+      setInvitinguser(false);
+    }
+  };
+
   useEffect(() => {
     if (username.trim()) {
       findUser();
@@ -33,6 +54,8 @@ const InviteToTeam = ({ isOpen, onCancel }) => {
       setUsers([]);
     }
   }, [username]);
+
+  if (!isOpen) return null;
 
   return (
     <Modal customMode showClose onClose={onCancel}>
@@ -101,6 +124,7 @@ const InviteToTeam = ({ isOpen, onCancel }) => {
           <div className="flex justify-end items-center gap-4">
             <button
               className="bg-primary/10 px-3 py-2.5 cursor-pointer rounded-md"
+              disabled={invitingUser}
               onClick={() => {
                 onCancel();
               }}
@@ -108,10 +132,11 @@ const InviteToTeam = ({ isOpen, onCancel }) => {
               Cancel
             </button>
             <button
-              disabled={!selectedUser || fetchingUsers}
+              disabled={!selectedUser || fetchingUsers || invitingUser}
+              onClick={inviteToTeam}
               className="bg-primary text-white px-3 py-2.5 cursor-pointer rounded-md"
             >
-              Invite
+              {invitingUser ? "Inviting..." : "Invite"}
             </button>
           </div>
         </div>

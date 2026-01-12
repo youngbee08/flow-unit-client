@@ -13,12 +13,34 @@ import TaskForm from "./pages/user/TaskForm";
 import NewProject from "./pages/user/NewProject";
 import Notifications from "./pages/user/Notifications";
 import ProfileSettings from "./pages/user/ProfileSettings";
+import Signup from "./pages/auth/Signup";
+import VerifyEmail from "./pages/auth/VerifyAccount";
+import Invitation from "./pages/backend/Invitation";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 const App = () => {
   return (
     <>
       <Routes>
         <Route index element={<Login />} />
+        <Route path="/create-account" element={<Signup />} />
+
+        <Route path="/verify-account" element={<VerifyEmail />} />
+
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+
+        <Route path="/reset-password" element={<ResetPassword />} />
+
+        <Route
+          path="/invitation/:teamId/"
+          element={
+            <ProtectedRoute>
+              <Invitation />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/dashboard/overview"
           element={

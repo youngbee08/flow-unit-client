@@ -36,7 +36,7 @@ const Teams = () => {
         setTeamInfo(res.data.team);
       }
     } catch (error) {
-      console.log("errorfetchingTeamInfo", error);
+      // console.log("errorfetchingTeamInfo", error);
       const errmessage =
         error.response.data.message ||
         error.message ||
@@ -101,8 +101,12 @@ const Teams = () => {
                       className="flex items-center justify-between"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center text-red-700 font-medium text-lg">
-                          {member.profile}
+                        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden text-red-700 font-medium text-lg">
+                          <img
+                            src={member.profile}
+                            alt="member-profile"
+                            className="w-full h-full object-cover"
+                          />
                         </div>
                         <div>
                           <p className="font-medium text-gray-900">

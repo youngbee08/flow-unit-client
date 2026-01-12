@@ -16,11 +16,7 @@ import MemberCardSkeleton from "../../components/skeletons/MemberSkeleton";
 import InviteToTeam from "../../components/modals/InviteToTeam";
 
 const Overview = () => {
-  const {
-    dashboardMetrics,
-    refreshUser,
-    token: contextToken,
-  } = useUser();
+  const { dashboardMetrics, refreshUser, token: contextToken } = useUser();
   const storedMetrics = JSON.parse(localStorage.getItem("dashboardMetrics"));
   const storedToken = localStorage.getItem("token");
   const token = contextToken || storedToken;
@@ -102,7 +98,6 @@ const Overview = () => {
     }
   };
 
-  
   const fetchProjects = async () => {
     setLoadingProjects(true);
     try {
@@ -125,7 +120,7 @@ const Overview = () => {
   useEffect(() => {
     fetchAssignedTasks();
     fetchTeamMembers();
-    fetchProjects()
+    fetchProjects();
   }, []);
 
   useEffect(() => {
@@ -229,6 +224,12 @@ const Overview = () => {
                     <ProjectCard project={project} key={idx} />
                   ))}
                 </div>
+                <Link
+                  className="flex justify-end text-xs lg:text-sm font-semibold underline"
+                  to={"/dashboard/projects"}
+                >
+                  See More
+                </Link>
               </div>
             )}
       </div>

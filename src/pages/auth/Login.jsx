@@ -19,7 +19,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import api from "../../helpers/api";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../contexts/UserContext";
 
 function Login() {
@@ -70,7 +70,7 @@ function Login() {
       try {
         const res = await api.post("/auth/login", values);
         if (res.status === 200) {
-          toast.success("Login successful");
+          toast.success("Login successfull");
           login(res.data.token);
           setTimeout(() => {
             const loading = toast.loading("Redirecting to dashboard...");
@@ -181,12 +181,12 @@ function Login() {
                   Remember me
                 </span>
               </label>
-              <a
-                href="#"
+              <Link
+                to="/forgot-password"
                 className="text-sm font-semibold text-primary/90 hover:text-primary hover:underline transition-all"
               >
                 Forgot Password?
-              </a>
+              </Link>
             </div>
 
             <button
@@ -200,12 +200,12 @@ function Login() {
 
           <div className="text-center mt-5 text-sm text-tetiary">
             Don't have an account?{" "}
-            <a
-              href="#"
+            <Link
+              to="/create-account"
               className="font-semibold text-primary/90 hover:text-primary hover:underline transition-all"
             >
               Create an account
-            </a>
+            </Link>
           </div>
         </div>
       </div>
