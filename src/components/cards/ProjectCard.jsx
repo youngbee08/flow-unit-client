@@ -26,7 +26,7 @@ const ProjectCard = ({ project }) => {
       <div className="p-6 flex flex-col gap-6">
         <div className="flex flex-col gap-3">
           <h3 className="text-xl group-hover:underline font-semibold text-gray-900">
-            {name}
+            {name.length > 15 ? `${name.slice(0, 15)}...` : name}
           </h3>
 
           <div className="absolute right-6 lg:hidden flex">

@@ -100,7 +100,7 @@ const TaskForm = () => {
                 type="date"
                 id="dueDate"
                 name="dueDate"
-                className="rounded-xl border border-primary px-3 py-3 focus:ring-primary focus:outline-none focus:border-primary transition-all text-tetiary placeholder-slate-400 focus:ring-2"
+                className="w-full lg:w-auto rounded-xl border border-primary px-3 py-3 focus:ring-primary focus:outline-none focus:border-primary transition-all text-tetiary placeholder-slate-400 focus:ring-2"
                 value={formik.values.dueDate}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
