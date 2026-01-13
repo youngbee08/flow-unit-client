@@ -296,18 +296,18 @@ bg-white border border-tetiary/20
 rounded-lg shadow-lg z-50
 "
                         >
-                          <button
-                            onClick={() => {
-                              navigate(
-                                `/dashboard/projects/${task?.project?._id}`
-                              );
-                            }}
-                            className="w-full text-left px-4 py-2 text-sm hover:bg-primary/10"
-                          >
-                            View project
-                          </button>
                           {task.project.createdBy === user._id ? (
                             <>
+                              <button
+                                onClick={() => {
+                                  navigate(
+                                    `/dashboard/projects/${task?.project?._id}`
+                                  );
+                                }}
+                                className="w-full text-left px-4 py-2 text-sm hover:bg-primary/10"
+                              >
+                                View project
+                              </button>
                               {task.status === "todo" && (
                                 <button
                                   onClick={() => setShowEditModal(true)}

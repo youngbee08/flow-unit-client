@@ -85,6 +85,9 @@ function Login() {
         const errMessage =
           error.response.data.message || error.message || "Failed to log in";
         toast.error(errMessage);
+        if (errMessage === "Please verify your account before you login") {
+          navigate("/verify-account");
+        }
       } finally {
         setSubmitting(false);
       }

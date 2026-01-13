@@ -11,6 +11,7 @@ import SingleProjectSkeleton from "../../components/skeletons/SingleProjectSkele
 import ConfirmDialog from "../../components/modals/ConfirmDialog";
 import EditTask from "../../components/modals/EditTask";
 import EditProject from "../../components/modals/EditProject";
+import AssignTask from "../../components/modals/Assigntask";
 
 const SingleProject = () => {
   const { id } = useParams();
@@ -26,6 +27,7 @@ const SingleProject = () => {
   const [deletingTask, setDeletingTask] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showAssignModal, setShowAssignModal] = useState(false);
   const [showEditProjectModal, setShowProjectEditModal] = useState(false);
   const [showDeleteProjectModal, setShowProjectDeleteModal] = useState(false);
   const [deletingProject, setDeletingProject] = useState(false);
@@ -421,7 +423,10 @@ rounded-lg shadow-lg z-50
                               <>
                                 {task.status === "todo" && (
                                   <>
-                                    <button className="w-full text-left px-4 py-2 text-sm hover:bg-primary/10">
+                                    <button
+                                      onClick={() => setShowAssignModal(true)}
+                                      className="w-full text-left px-4 py-2 text-sm hover:bg-primary/10"
+                                    >
                                       Re-assign task
                                     </button>
                                     <button
@@ -503,6 +508,13 @@ rounded-lg shadow-lg z-50
         onCancel={() => setShowProjectEditModal(false)}
         project={project}
         otherAction={fetchProjectDetails}
+      />
+      <AssignTask
+        isOpen={showAssignModal}
+        onCancel={() => setShowAssignModal(false)}
+        teamId={user.ownerOf}
+        taskId={selectedTask?._id}
+        onAssigned={fetchProjectDetails}
       />
     </>
   );
