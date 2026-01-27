@@ -18,12 +18,14 @@ import VerifyEmail from "./pages/auth/VerifyAccount";
 import Invitation from "./pages/backend/Invitation";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   return (
     <>
       <Routes>
         <Route index element={<Login />} />
+        <Route path="*" element={<NotFound />} />
         <Route path="/create-account" element={<Signup />} />
 
         <Route path="/verify-account" element={<VerifyEmail />} />
