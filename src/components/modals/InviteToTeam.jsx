@@ -13,7 +13,7 @@ const InviteToTeam = ({ isOpen, onCancel }) => {
   const findUser = async () => {
     setFetchingUsers(true);
     try {
-      const res = await api.get(`/user/findUser/${username}`);
+      const res = await api.get(`/user/findUser?search=${username}`);
       if (res.status === 200 || res.status === 404) {
         setUsers(res.data.users);
       }
