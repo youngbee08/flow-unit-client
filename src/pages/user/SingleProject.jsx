@@ -12,11 +12,13 @@ import ConfirmDialog from "../../components/modals/ConfirmDialog";
 import EditTask from "../../components/modals/EditTask";
 import EditProject from "../../components/modals/EditProject";
 import AssignTask from "../../components/modals/Assigntask";
+import TaskOption from "../../components/modals/TaskOption";
 
 const SingleProject = () => {
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [fetchingProjectDetails, setFetchingProjectDetails] = useState(false);
+  const [showOptionModal, setShowOptionModal] = useState(false);
   const [openAction, setOpenAction] = useState(null);
   const { user: contextUser } = useUser();
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -79,7 +81,7 @@ const SingleProject = () => {
     setDeletingTask(true);
     try {
       const res = await api.delete(
-        `/user/deleteTask?taskID=${selectedTask?._id}&projectID=${project?._id}`
+        `/user/deleteTask?taskID=${selectedTask?._id}&projectID=${project?._id}`,
       );
       if (res.status === 200) {
         toast.success("Task deleted successful");
@@ -260,12 +262,12 @@ const SingleProject = () => {
               )}
             </div>
             <div className="">
-              <Link
-                to={`/dashboard/projects/${project?._id}/addTask`}
+              <button
+                onClick={() => setShowOptionModal(true)}
                 className="bg-primary px-5 py-2 rounded-xl cursor-pointer text-white text-xs font-semibold lg:text-sm shadow-lg flex items-center gap-2"
               >
                 <FaPlus /> New Task
-              </Link>
+              </button>
             </div>
           </div>
           <div className="bg-white w-[98%] mx-auto rounded-lg shadow overflow-x-auto styled-scrollbar">
@@ -307,8 +309,8 @@ const SingleProject = () => {
                           once they’re created or assigned to you.
                         </p>
 
-                        <Link
-                          to={`/dashboard/projects/${project?._id}/addTask`}
+                        <button
+                          onClick={() => setShowOptionModal(true)}
                           className="cursor-pointer
             mt-2 px-4 py-2 rounded-xl
             bg-primary text-white text-sm
@@ -316,7 +318,7 @@ const SingleProject = () => {
           "
                         >
                           Create task
-                        </Link>
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -363,8 +365,8 @@ const SingleProject = () => {
                             task?.status?.toLowerCase() === "todo"
                               ? "bg-yellow-800/10 text-yellow-800"
                               : task?.status?.toLowerCase() === "done"
-                              ? "bg-primary/10 text-primary"
-                              : ""
+                                ? "bg-primary/10 text-primary"
+                                : ""
                           }`}
                         >
                           {task.status}
@@ -468,7 +470,7 @@ rounded-lg shadow-lg z-50
                   ))}
                 </tbody>
               )}
-            </table>
+             </table>
           </div>
         </div>
       </div>
@@ -515,6 +517,11 @@ rounded-lg shadow-lg z-50
         teamId={user.ownerOf}
         taskId={selectedTask?._id}
         onAssigned={fetchProjectDetails}
+      />
+      <TaskOption
+        isOpen={showOptionModal}
+        onCancel={() => setShowOptionModal(false)}
+        projecctID={id}
       />
     </>
   );

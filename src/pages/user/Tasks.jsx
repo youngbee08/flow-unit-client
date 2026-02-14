@@ -10,6 +10,7 @@ import TaskTableSkeleton from "../../components/skeletons/TaskTableSkeleton";
 import { formatSmartDate } from "../../utilities/FormatterUtility";
 import ConfirmDialog from "../../components/modals/ConfirmDialog";
 import EditTask from "../../components/modals/EditTask";
+import TaskOption from "../../components/modals/TaskOption";
 
 const Tasks = () => {
   const { user: contextUser } = useUser();
@@ -80,7 +81,7 @@ const Tasks = () => {
     setDeletingTask(true);
     try {
       const res = await api.delete(
-        `/user/deleteTask?taskID=${selectedTask?._id}&projectID=${selectedTask?.project?._id}`
+        `/user/deleteTask?taskID=${selectedTask?._id}&projectID=${selectedTask?.project?._id}`,
       );
       if (res.status === 200) {
         toast.success("Task deleted successful");
@@ -240,8 +241,8 @@ const Tasks = () => {
                           task.status.toLowerCase() === "todo"
                             ? "bg-yellow-800/10 text-yellow-800"
                             : task.status.toLowerCase() === "done"
-                            ? "bg-primary/10 text-primary"
-                            : ""
+                              ? "bg-primary/10 text-primary"
+                              : ""
                         }`}
                       >
                         {task.status}
@@ -301,7 +302,7 @@ rounded-lg shadow-lg z-50
                               <button
                                 onClick={() => {
                                   navigate(
-                                    `/dashboard/projects/${task?.project?._id}`
+                                    `/dashboard/projects/${task?.project?._id}`,
                                   );
                                 }}
                                 className="w-full text-left px-4 py-2 text-sm hover:bg-primary/10"
