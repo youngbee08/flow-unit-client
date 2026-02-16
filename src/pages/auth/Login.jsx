@@ -19,13 +19,16 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import api from "../../helpers/api";
 import { toast } from "sonner";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "../../contexts/UserContext";
 
 function Login() {
   const navigate = useNavigate();
   const { login } = useUser();
   const [showPassword, setShowPassword] = useState(false);
+  const [searchParams] = useSearchParams();
+  const returnUrl = searchParams.get("returnUrl");
+
   const slides = [
     {
       id: 1,
@@ -76,7 +79,7 @@ function Login() {
             const loading = toast.loading("Redirecting to dashboard...");
             setTimeout(() => {
               toast.dismiss(loading);
-              navigate("/dashboard/overview");
+              navigate(returnUrl || "/dashboard/overview");
             }, 2000);
           }, 1500);
         }

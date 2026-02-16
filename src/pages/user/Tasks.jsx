@@ -112,7 +112,7 @@ const Tasks = () => {
     <>
       <div className="flex flex-col gap-4 ">
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3 px-3 py-2 border-[1.5px] lg:w-[35%] border-gray-300 shadow-2xl bg-white rounded-lg">
+          <div className="flex items-center gap-3 px-3 py-2 border-[1.5px] lg:w-[35%] border-gray-300 shadow-2xl bg-white rounded-xl">
             <AiOutlineSearch className="text-tetiary" />
             <input
               type="text"
@@ -129,7 +129,7 @@ const Tasks = () => {
           />
         </div>
 
-        <div className="bg-white w-full rounded-lg shadow overflow-x-auto styled-scrollbar">
+        <div className="bg-white w-full rounded-xl shadow overflow-x-auto styled-scrollbar">
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-tetiary/30">
               <tr>
@@ -176,7 +176,7 @@ const Tasks = () => {
 
                       {/* <button
                       className="cursor-pointer
-            mt-2 px-4 py-2 rounded-lg
+            mt-2 px-4 py-2 rounded-xl
             bg-primary text-white text-sm
             hover:bg-primary/90 transition
           "
@@ -294,7 +294,7 @@ const Tasks = () => {
                           className="
 absolute right-6 mt-2 w-36
 bg-white border border-tetiary/20
-rounded-lg shadow-lg z-50
+rounded-xl shadow-lg z-50
 "
                         >
                           {task.project.createdBy === user._id ? (

@@ -1,5 +1,3 @@
-// SideBar.jsx
-import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Plus, Settings, Sparkles } from "lucide-react";
 import navItems from "../../lib/navItems";
@@ -9,7 +7,7 @@ const NEW_FEATURE = {
   title: "Smart Generator",
   description: "Quickly generate tasks in one click.",
   badge: "NEW",
-  path: "/dashboard/smart-generator",
+  path: "/dashboard/tasks/smart-generator",
   icon: Sparkles,
 };
 

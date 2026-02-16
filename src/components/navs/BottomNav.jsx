@@ -16,7 +16,7 @@ const BottomNav = () => {
 
   const goAddTasksAI = () => {
     setOpenSheet(false);
-    navigate("/dashboard/smart-generator");
+    navigate("/dashboard/tasks/smart-generator");
   };
 
   return (

@@ -24,7 +24,7 @@ const Modal = ({
             bg-white
             md:p-8 p-4
             lg:w-1/2 md:w-3/4 w-full
-            rounded-lg relative
+            rounded-xl relative
             max-h-[90vh] overflow-y-auto
           "
         >

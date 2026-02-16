@@ -11,7 +11,7 @@ const Dropdown = ({ value, onChange, options }) => {
         onClick={() => setOpen((prev) => !prev)}
         className="
           w-full flex items-center justify-between
-          px-4 py-2 rounded-lg border border-slate-200
+          px-4 py-2 rounded-xl border border-slate-200
           bg-white text-primary text-sm
           hover:border-primary transition-colors cursor-pointer
         "
@@ -24,16 +24,18 @@ const Dropdown = ({ value, onChange, options }) => {
       </button>
 
       {open && (
-        <div className="
+        <div
+          className="
           absolute mt-2 w-full bg-white rounded-xl shadow-lg
           border border-slate-200 z-50 overflow-hidden
-        ">
+        "
+        >
           {options.map((item) => (
             <button
               key={item}
               type="button"
               onClick={() => {
-                onChange(item);  
+                onChange(item);
                 setOpen(false);
               }}
               className="

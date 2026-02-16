@@ -163,7 +163,7 @@ const SingleProject = () => {
   return (
     <>
       <div className="flex flex-col gap-9 lg:gap-5">
-        <div className="px-4 py-4.5 bg-white  rounded-lg w-full flex flex-col gap-4 shadow-lg">
+        <div className="px-4 py-4.5 bg-white  rounded-xl w-full flex flex-col gap-4 shadow-lg">
           <div className="flex justify-between items-start lg:items-center gap-4 border-b border-tetiary/20 lg:pb-5 pb-3">
             <div className="flex flex-col gap-1 w-[65%]">
               <h2 className="text-base md:text-xl lg:text-2xl font-bold">
@@ -256,7 +256,7 @@ const SingleProject = () => {
             <div className="flex items-center gap-2">
               <h2 className="text-base lg:text-xl font-bold">Tasks</h2>
               {project.tasks && (
-                <h4 className="bg-primary/20 text-xs lg:text-sm font-medium rounded-lg px-2">
+                <h4 className="bg-primary/20 text-xs lg:text-sm font-medium rounded-xl px-2">
                   {project?.tasks?.length} Total
                 </h4>
               )}
@@ -270,7 +270,7 @@ const SingleProject = () => {
               </button>
             </div>
           </div>
-          <div className="bg-white w-[98%] mx-auto rounded-lg shadow overflow-x-auto styled-scrollbar">
+          <div className="bg-white w-[98%] mx-auto rounded-xl shadow overflow-x-auto styled-scrollbar">
             <table className="w-full">
               <thead className="bg-gray-50 border-b border-tetiary/30">
                 <tr>
@@ -418,7 +418,7 @@ const SingleProject = () => {
                             className="
 absolute right-6 mt-2 w-36
 bg-white border border-tetiary/20
-rounded-lg shadow-lg z-50
+rounded-xl shadow-lg z-50
 "
                           >
                             {project.createdBy === user._id ? (
@@ -470,7 +470,7 @@ rounded-lg shadow-lg z-50
                   ))}
                 </tbody>
               )}
-             </table>
+            </table>
           </div>
         </div>
       </div>

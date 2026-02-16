@@ -9,7 +9,7 @@ const ProtectedRoute = ({ children }) => {
   }
 
   if (!isLoggedIn) {
-    window.location.replace("/");
+    window.location.replace(`/?returnUrl=${location.pathname}`);
     return null;
   }
 

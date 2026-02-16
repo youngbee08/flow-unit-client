@@ -20,6 +20,7 @@ import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 import NotFound from "./pages/NotFound";
 import TaskGenerator from "./pages/user/TaskGenerator";
+import TaskSmartGenerator from "./pages/user/TaskSmartGenerator";
 
 const App = () => {
   return (
@@ -59,6 +60,17 @@ const App = () => {
               <DashboardsLayout
                 children={<Tasks />}
                 pageName={"Assigned Tasks"}
+              />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/tasks/smart-generator"
+          element={
+            <ProtectedRoute>
+              <DashboardsLayout
+                children={<TaskSmartGenerator />}
+                pageName={"AI Task Generator"}
               />
             </ProtectedRoute>
           }
