@@ -6,7 +6,7 @@ export const formatISODateToYYYYMMDD = (isoString) => {
 
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
     2,
-    "0"
+    "0",
   )}-${String(date.getDate()).padStart(2, "0")}`;
 };
 
@@ -20,10 +20,10 @@ export function formatPrettyDate(dateString) {
     day % 10 === 1 && day !== 11
       ? "st"
       : day % 10 === 2 && day !== 12
-      ? "nd"
-      : day % 10 === 3 && day !== 13
-      ? "rd"
-      : "th";
+        ? "nd"
+        : day % 10 === 3 && day !== 13
+          ? "rd"
+          : "th";
 
   return `${day}${suffix} ${month}, ${year}`;
 }
@@ -58,18 +58,18 @@ export function formatSmartDate(input) {
   const startOfToday = new Date(
     now.getFullYear(),
     now.getMonth(),
-    now.getDate()
+    now.getDate(),
   );
 
   const startOfDate = new Date(
     date.getFullYear(),
     date.getMonth(),
-    date.getDate()
+    date.getDate(),
   );
 
   const ONE_DAY = 24 * 60 * 60 * 1000;
   const diffDays = Math.round(
-    (startOfDate.getTime() - startOfToday.getTime()) / ONE_DAY
+    (startOfDate.getTime() - startOfToday.getTime()) / ONE_DAY,
   );
 
   if (diffDays === -1) return "Yesterday";
@@ -92,3 +92,41 @@ export function formatSmartDate(input) {
 
   return date.toLocaleDateString("en-US", options);
 }
+
+export const formatTimeAgo = (date) => {
+  if (!date) return "";
+  const now = new Date();
+  const d = new Date(date);
+  const sec = Math.floor((now - d) / 1000);
+
+  if (sec < 60) return `${sec}s`;
+  const min = Math.floor(sec / 60);
+  if (min < 60) return `${min}m`;
+  const hr = Math.floor(min / 60);
+  if (hr < 24) return `${hr}h`;
+  const day = Math.floor(hr / 24);
+  return `${day}d`;
+};
+
+export const formatDueMeta = (dueDate) => {
+  if (!dueDate) return "No due date";
+  const now = new Date();
+  const due = new Date(dueDate);
+  const days = Math.ceil((due - now) / (1000 * 60 * 60 * 24));
+
+  if (days < 0) return "Overdue";
+  if (days === 0) return "Due today";
+  if (days === 1) return "Due tomorrow";
+  return `Due in ${days}d`;
+};
+
+export const metaTone = (type, dueDate) => {
+  if (type !== "task") return "text-black/40";
+  if (!dueDate) return "text-black/40";
+  const days = Math.ceil(
+    (new Date(dueDate) - new Date()) / (1000 * 60 * 60 * 24),
+  );
+  if (days < 0) return "text-red-600/80";
+  if (days <= 1) return "text-amber-600/80";
+  return "text-black/40";
+};

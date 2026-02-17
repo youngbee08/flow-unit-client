@@ -62,7 +62,7 @@ const Teams = () => {
               <h2 className="text-sm lg:text-xl font-semibold text-gray-900">
                 About the Team
               </h2>
-              <p className="text-gray-600 leading-relaxed mb-4">
+              <p className="text-xs lg:text-sm text-gray-600 leading-relaxed mb-4">
                 {teamInfo?.about}
               </p>
             </div>

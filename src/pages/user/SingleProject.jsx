@@ -34,10 +34,10 @@ const SingleProject = () => {
   const [showDeleteProjectModal, setShowProjectDeleteModal] = useState(false);
   const [deletingProject, setDeletingProject] = useState(false);
 
-  const fetchProjectDetails = async () => {
+  const fetchProjectDetails = async (projectId) => {
     setFetchingProjectDetails(true);
     try {
-      const res = await api.get(`/user/project/${id}`);
+      const res = await api.get(`/user/project/${projectId}`);
       if (res.status === 200) {
         setProject(res.data.project);
       }
@@ -120,8 +120,13 @@ const SingleProject = () => {
   };
 
   useEffect(() => {
-    fetchProjectDetails();
-  }, []);
+    if (id) {
+      fetchProjectDetails(id);
+      setProject(null);
+      setOpenAction(null);
+      setSelectedTask(null);
+    }
+  }, [id]);
 
   useEffect(() => {
     const close = () => setOpenAction(null);
