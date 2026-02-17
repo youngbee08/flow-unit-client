@@ -131,7 +131,7 @@ const Projects = () => {
     </div>
   ) : (
     <div className="flex flex-col gap-5">
-      <div className="bg-white px-4 py-4.5 shadow-lg flex justify-between items-center rounded-lg">
+      <div className="bg-white px-4 py-4.5 shadow-lg flex justify-between items-center rounded-xl">
         <div className="w-full lg:w-[40%] flex flex-col gap-2">
           <h2 className="text-sm lg:text-[17px] font-semibold">
             Your Project Landscape

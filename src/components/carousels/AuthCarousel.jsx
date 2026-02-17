@@ -37,7 +37,7 @@ function AuthCarousel({ slides }) {
                       <div className="w-2 h-2 rounded-full bg-green-400" />
                     </div>
 
-                    <div className="flex items-start gap-3 p-2 bg-slate-50 rounded-lg">
+                    <div className="flex items-start gap-3 p-2 bg-slate-50 rounded-xl">
                       <div className="w-8 h-8 bg-blue-100 rounded-full flex-shrink-0" />
                       <div className="flex-1 space-y-1.5">
                         <div className="w-3/4 h-2 bg-slate-200 rounded" />
@@ -45,14 +45,14 @@ function AuthCarousel({ slides }) {
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-3 p-2 bg-slate-50 rounded-lg opacity-70">
+                    <div className="flex items-start gap-3 p-2 bg-slate-50 rounded-xl opacity-70">
                       <div className="w-8 h-8 bg-purple-100 rounded-full flex-shrink-0" />
                       <div className="flex-1 space-y-1.5">
                         <div className="w-2/3 h-2 bg-slate-200 rounded" />
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-3 p-2 bg-slate-50 rounded-lg opacity-40">
+                    <div className="flex items-start gap-3 p-2 bg-slate-50 rounded-xl opacity-40">
                       <div className="w-8 h-8 bg-orange-100 rounded-full flex-shrink-0" />
                       <div className="flex-1 space-y-1.5">
                         <div className="w-3/4 h-2 bg-slate-200 rounded" />
@@ -82,8 +82,8 @@ function AuthCarousel({ slides }) {
                             idx === 0
                               ? "text-purple-500"
                               : idx === 1
-                              ? "text-blue-500"
-                              : "text-green-500"
+                                ? "text-blue-500"
+                                : "text-green-500"
                           }
                         />
                       </div>

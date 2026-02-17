@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+// DashboardsLayout.jsx
+import React, { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SideBar from "../components/navs/SideBar";
 import BottomNav from "../components/navs/BottomNav";
@@ -11,7 +12,7 @@ const pageVariants = {
 };
 
 const sidebarVariants = {
-  hidden: { x: -60, opacity: 0 },
+  hidden: { x: -40, opacity: 0 },
   visible: { x: 0, opacity: 1 },
 };
 
@@ -20,47 +21,64 @@ const bottomNavVariants = {
   visible: { y: 0, opacity: 1 },
 };
 
-const DashboardsLayout = ({ children, pageName, pageInfo, pageUtility }) => {
+const DashboardsLayout = ({
+  children,
+  pageName,
+  pageInfo,
+  pageUtility,
+  sidebarMode = "full",
+}) => {
   useEffect(() => {
     document.title = `FlowUnit - ${pageName}`;
   }, [pageName]);
 
+  const [mode, setMode] = useState(sidebarMode);
+  useEffect(() => setMode(sidebarMode), [sidebarMode]);
+
+  const showSidebar = mode !== "hidden";
+  const isCollapsed = mode === "collapsed";
+
+  const sidebarWidth = useMemo(() => {
+    if (!showSidebar) return "w-0";
+    return isCollapsed ? "w-[84px]" : "w-[300px]";
+  }, [showSidebar, isCollapsed]);
+
+  const showExpandToggle = isCollapsed;
+  const expandSidebar = () => setMode("full");
+
   return (
-    <div className="flex w-full h-dvh overflow-hidden relative bg-tetiary/30 text-primary">
-      <motion.aside
-        className="hidden lg:flex w-[23%] flex-shrink-0 sticky top-0 h-full z-40"
-        variants={sidebarVariants}
-        initial="hidden"
-        animate="visible"
-        transition={{
-          duration: 0.7,
-          ease: [0.16, 1, 0.3, 1],
-        }}
-      >
-        <SideBar />
-      </motion.aside>
+    <div className="flex w-full h-dvh overflow-hidden text-primary bg-slate-100/70">
+      {showSidebar && (
+        <motion.aside
+          className={`hidden lg:flex ${sidebarWidth} flex-shrink-0 sticky top-0 h-full`}
+          variants={sidebarVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <SideBar collapsed={isCollapsed} />
+        </motion.aside>
+      )}
 
       <AnimatePresence mode="wait">
         <motion.main
           key={pageName}
-          className={`flex-1 no-scrollbar pt-15 overflow-y-auto flex-col ${
-            pageInfo ? "lg:pt-35 pt-15" : "pt-15"
-          }`}
+          className="flex-1 overflow-y-auto no-scrollbar bg-slate-100/70"
           variants={pageVariants}
           initial="initial"
           animate="animate"
           exit="exit"
-          transition={{
-            duration: 0.55,
-            ease: [0.16, 1, 0.3, 1],
-          }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
         >
           <TopNav
             pageName={pageName}
             pageInfo={pageInfo || ""}
             pageUtility={pageUtility}
+            showExpandToggle={showExpandToggle}
+            onExpandSidebar={expandSidebar}
           />
-          <div className="px-4 pt-5 pb-21">{children}</div>
+
+          <div className="px-4 py-5 pb-21">{children}</div>
         </motion.main>
       </AnimatePresence>
 
@@ -69,10 +87,7 @@ const DashboardsLayout = ({ children, pageName, pageInfo, pageUtility }) => {
         variants={bottomNavVariants}
         initial="hidden"
         animate="visible"
-        transition={{
-          duration: 0.8,
-          ease: [0.16, 1, 0.3, 1],
-        }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       >
         <BottomNav />
       </motion.div>

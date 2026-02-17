@@ -12,11 +12,13 @@ import ConfirmDialog from "../../components/modals/ConfirmDialog";
 import EditTask from "../../components/modals/EditTask";
 import EditProject from "../../components/modals/EditProject";
 import AssignTask from "../../components/modals/Assigntask";
+import TaskOption from "../../components/modals/TaskOption";
 
 const SingleProject = () => {
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [fetchingProjectDetails, setFetchingProjectDetails] = useState(false);
+  const [showOptionModal, setShowOptionModal] = useState(false);
   const [openAction, setOpenAction] = useState(null);
   const { user: contextUser } = useUser();
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -32,10 +34,10 @@ const SingleProject = () => {
   const [showDeleteProjectModal, setShowProjectDeleteModal] = useState(false);
   const [deletingProject, setDeletingProject] = useState(false);
 
-  const fetchProjectDetails = async () => {
+  const fetchProjectDetails = async (projectId) => {
     setFetchingProjectDetails(true);
     try {
-      const res = await api.get(`/user/project/${id}`);
+      const res = await api.get(`/user/project/${projectId}`);
       if (res.status === 200) {
         setProject(res.data.project);
       }
@@ -79,7 +81,7 @@ const SingleProject = () => {
     setDeletingTask(true);
     try {
       const res = await api.delete(
-        `/user/deleteTask?taskID=${selectedTask?._id}&projectID=${project?._id}`
+        `/user/deleteTask?taskID=${selectedTask?._id}&projectID=${project?._id}`,
       );
       if (res.status === 200) {
         toast.success("Task deleted successful");
@@ -118,8 +120,13 @@ const SingleProject = () => {
   };
 
   useEffect(() => {
-    fetchProjectDetails();
-  }, []);
+    if (id) {
+      fetchProjectDetails(id);
+      setProject(null);
+      setOpenAction(null);
+      setSelectedTask(null);
+    }
+  }, [id]);
 
   useEffect(() => {
     const close = () => setOpenAction(null);
@@ -161,7 +168,7 @@ const SingleProject = () => {
   return (
     <>
       <div className="flex flex-col gap-9 lg:gap-5">
-        <div className="px-4 py-4.5 bg-white  rounded-lg w-full flex flex-col gap-4 shadow-lg">
+        <div className="px-4 py-4.5 bg-white  rounded-xl w-full flex flex-col gap-4 shadow-lg">
           <div className="flex justify-between items-start lg:items-center gap-4 border-b border-tetiary/20 lg:pb-5 pb-3">
             <div className="flex flex-col gap-1 w-[65%]">
               <h2 className="text-base md:text-xl lg:text-2xl font-bold">
@@ -254,21 +261,21 @@ const SingleProject = () => {
             <div className="flex items-center gap-2">
               <h2 className="text-base lg:text-xl font-bold">Tasks</h2>
               {project.tasks && (
-                <h4 className="bg-primary/20 text-xs lg:text-sm font-medium rounded-lg px-2">
+                <h4 className="bg-primary/20 text-xs lg:text-sm font-medium rounded-xl px-2">
                   {project?.tasks?.length} Total
                 </h4>
               )}
             </div>
             <div className="">
-              <Link
-                to={`/dashboard/projects/${project?._id}/addTask`}
+              <button
+                onClick={() => setShowOptionModal(true)}
                 className="bg-primary px-5 py-2 rounded-xl cursor-pointer text-white text-xs font-semibold lg:text-sm shadow-lg flex items-center gap-2"
               >
                 <FaPlus /> New Task
-              </Link>
+              </button>
             </div>
           </div>
-          <div className="bg-white w-[98%] mx-auto rounded-lg shadow overflow-x-auto styled-scrollbar">
+          <div className="bg-white w-[98%] mx-auto rounded-xl shadow overflow-x-auto styled-scrollbar">
             <table className="w-full">
               <thead className="bg-gray-50 border-b border-tetiary/30">
                 <tr>
@@ -307,8 +314,8 @@ const SingleProject = () => {
                           once they’re created or assigned to you.
                         </p>
 
-                        <Link
-                          to={`/dashboard/projects/${project?._id}/addTask`}
+                        <button
+                          onClick={() => setShowOptionModal(true)}
                           className="cursor-pointer
             mt-2 px-4 py-2 rounded-xl
             bg-primary text-white text-sm
@@ -316,7 +323,7 @@ const SingleProject = () => {
           "
                         >
                           Create task
-                        </Link>
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -363,8 +370,8 @@ const SingleProject = () => {
                             task?.status?.toLowerCase() === "todo"
                               ? "bg-yellow-800/10 text-yellow-800"
                               : task?.status?.toLowerCase() === "done"
-                              ? "bg-primary/10 text-primary"
-                              : ""
+                                ? "bg-primary/10 text-primary"
+                                : ""
                           }`}
                         >
                           {task.status}
@@ -416,7 +423,7 @@ const SingleProject = () => {
                             className="
 absolute right-6 mt-2 w-36
 bg-white border border-tetiary/20
-rounded-lg shadow-lg z-50
+rounded-xl shadow-lg z-50
 "
                           >
                             {project.createdBy === user._id ? (
@@ -515,6 +522,11 @@ rounded-lg shadow-lg z-50
         teamId={user.ownerOf}
         taskId={selectedTask?._id}
         onAssigned={fetchProjectDetails}
+      />
+      <TaskOption
+        isOpen={showOptionModal}
+        onCancel={() => setShowOptionModal(false)}
+        projecctID={id}
       />
     </>
   );

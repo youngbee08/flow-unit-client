@@ -62,7 +62,7 @@ const Teams = () => {
               <h2 className="text-sm lg:text-xl font-semibold text-gray-900">
                 About the Team
               </h2>
-              <p className="text-gray-600 leading-relaxed mb-4">
+              <p className="text-xs lg:text-sm text-gray-600 leading-relaxed mb-4">
                 {teamInfo?.about}
               </p>
             </div>
@@ -168,7 +168,7 @@ const Teams = () => {
                     {teamInfo?.projects.slice(0, 2).map((project, idx) => (
                       <div
                         key={idx}
-                        className="flex items-center justify-between p-4 bg-tetiary/10 rounded-lg"
+                        className="flex items-center justify-between p-4 bg-tetiary/10 rounded-xl"
                       >
                         <div>
                           <p className="font-medium text-primary">
@@ -224,7 +224,7 @@ const Teams = () => {
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
             <button
-              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 text-white text-sm font-medium hover:bg-slate-800 transition cursor-pointer"
+              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-medium hover:bg-slate-800 transition cursor-pointer"
               onClick={() => setShowNewTeamModal(true)}
             >
               <Plus className="w-4 h-4" />
@@ -234,10 +234,10 @@ const Teams = () => {
             <button
               onClick={() =>
                 toast.warning(
-                  "You aren't eligible to share your invite link yet."
+                  "You aren't eligible to share your invite link yet.",
                 )
               }
-              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg border border-slate-200 text-slate-700 text-sm font-medium hover:bg-slate-50 transition cursor-pointer"
+              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 text-slate-700 text-sm font-medium hover:bg-slate-50 transition cursor-pointer"
             >
               <Link2 className="w-4 h-4" />
               Invite via Link
@@ -251,7 +251,7 @@ const Teams = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left">
               <div className="flex gap-3 items-start">
-                <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-indigo-50 shrink-0">
+                <div className="w-8 h-8 flex items-center justify-center rounded-xl bg-indigo-50 shrink-0">
                   <Zap className="w-4 h-4 text-indigo-600" />
                 </div>
                 <div>
@@ -265,7 +265,7 @@ const Teams = () => {
               </div>
 
               <div className="flex gap-3 items-start">
-                <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-emerald-50 shrink-0">
+                <div className="w-8 h-8 flex items-center justify-center rounded-xl bg-emerald-50 shrink-0">
                   <CheckCircle className="w-4 h-4 text-emerald-600" />
                 </div>
                 <div>
@@ -279,7 +279,7 @@ const Teams = () => {
               </div>
 
               <div className="flex gap-3 items-start">
-                <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-violet-50 shrink-0">
+                <div className="w-8 h-8 flex items-center justify-center rounded-xl bg-violet-50 shrink-0">
                   <MessageSquare className="w-4 h-4 text-violet-600" />
                 </div>
                 <div>

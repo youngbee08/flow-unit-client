@@ -19,6 +19,8 @@ import Invitation from "./pages/backend/Invitation";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 import NotFound from "./pages/NotFound";
+import TaskGenerator from "./pages/user/TaskGenerator";
+import TaskSmartGenerator from "./pages/user/TaskSmartGenerator";
 
 const App = () => {
   return (
@@ -63,17 +65,23 @@ const App = () => {
           }
         />
         <Route
+          path="/dashboard/tasks/smart-generator"
+          element={
+            <ProtectedRoute>
+              <DashboardsLayout
+                children={<TaskSmartGenerator />}
+                pageName={"AI Task Generator"}
+              />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/dashboard/projects"
           element={
             <ProtectedRoute>
               <DashboardsLayout
                 children={<Projects />}
                 pageName={"All Projects"}
-                pageUtility={{
-                  active: true,
-                  info: "Create new Project",
-                  shortcut: "/dashboard/projects/new",
-                }}
               />
             </ProtectedRoute>
           }
@@ -110,6 +118,17 @@ const App = () => {
                 pageInfo={
                   "Use the form below to add a new task to your project. Provide clear and accurate details to help track progress, assign responsibility, and keep everything organized. Once added, this task will become part of your project workflow and can be updated or managed at any time."
                 }
+              />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/projects/:id/ai/addTask"
+          element={
+            <ProtectedRoute>
+              <DashboardsLayout
+                children={<TaskGenerator />}
+                pageName={"AI Task Generator"}
               />
             </ProtectedRoute>
           }

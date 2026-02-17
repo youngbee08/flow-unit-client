@@ -45,7 +45,7 @@ const TeamPageSkeleton = () => {
               {[1, 2].map((_, idx) => (
                 <div
                   key={idx}
-                  className="p-4 rounded-lg bg-gray-100 flex items-center justify-between"
+                  className="p-4 rounded-xl bg-gray-100 flex items-center justify-between"
                 >
                   <div className="space-y-2">
                     <div className="h-4 w-32 bg-gray-200 rounded" />

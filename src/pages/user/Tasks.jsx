@@ -10,6 +10,7 @@ import TaskTableSkeleton from "../../components/skeletons/TaskTableSkeleton";
 import { formatSmartDate } from "../../utilities/FormatterUtility";
 import ConfirmDialog from "../../components/modals/ConfirmDialog";
 import EditTask from "../../components/modals/EditTask";
+import TaskOption from "../../components/modals/TaskOption";
 
 const Tasks = () => {
   const { user: contextUser } = useUser();
@@ -80,7 +81,7 @@ const Tasks = () => {
     setDeletingTask(true);
     try {
       const res = await api.delete(
-        `/user/deleteTask?taskID=${selectedTask?._id}&projectID=${selectedTask?.project?._id}`
+        `/user/deleteTask?taskID=${selectedTask?._id}&projectID=${selectedTask?.project?._id}`,
       );
       if (res.status === 200) {
         toast.success("Task deleted successful");
@@ -111,7 +112,7 @@ const Tasks = () => {
     <>
       <div className="flex flex-col gap-4 ">
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3 px-3 py-2 border-[1.5px] lg:w-[35%] border-gray-300 shadow-2xl bg-white rounded-lg">
+          <div className="flex items-center gap-3 px-3 py-2 border-[1.5px] lg:w-[35%] border-gray-300 shadow-2xl bg-white rounded-xl">
             <AiOutlineSearch className="text-tetiary" />
             <input
               type="text"
@@ -128,7 +129,7 @@ const Tasks = () => {
           />
         </div>
 
-        <div className="bg-white w-full rounded-lg shadow overflow-x-auto styled-scrollbar">
+        <div className="bg-white w-full rounded-xl shadow overflow-x-auto styled-scrollbar">
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-tetiary/30">
               <tr>
@@ -175,7 +176,7 @@ const Tasks = () => {
 
                       {/* <button
                       className="cursor-pointer
-            mt-2 px-4 py-2 rounded-lg
+            mt-2 px-4 py-2 rounded-xl
             bg-primary text-white text-sm
             hover:bg-primary/90 transition
           "
@@ -240,8 +241,8 @@ const Tasks = () => {
                           task.status.toLowerCase() === "todo"
                             ? "bg-yellow-800/10 text-yellow-800"
                             : task.status.toLowerCase() === "done"
-                            ? "bg-primary/10 text-primary"
-                            : ""
+                              ? "bg-primary/10 text-primary"
+                              : ""
                         }`}
                       >
                         {task.status}
@@ -293,7 +294,7 @@ const Tasks = () => {
                           className="
 absolute right-6 mt-2 w-36
 bg-white border border-tetiary/20
-rounded-lg shadow-lg z-50
+rounded-xl shadow-lg z-50
 "
                         >
                           {task.project.createdBy === user._id ? (
@@ -301,7 +302,7 @@ rounded-lg shadow-lg z-50
                               <button
                                 onClick={() => {
                                   navigate(
-                                    `/dashboard/projects/${task?.project?._id}`
+                                    `/dashboard/projects/${task?.project?._id}`,
                                   );
                                 }}
                                 className="w-full text-left px-4 py-2 text-sm hover:bg-primary/10"

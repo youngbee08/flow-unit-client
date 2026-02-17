@@ -2,7 +2,7 @@ const SingleProjectSkeleton = () => {
   return (
     <div className="flex flex-col gap-9 lg:gap-5 animate-pulse">
       {/* Project Card */}
-      <div className="px-4 py-4.5 bg-white rounded-lg w-full flex flex-col gap-4 shadow-lg">
+      <div className="px-4 py-4.5 bg-white rounded-xl w-full flex flex-col gap-4 shadow-lg">
         {/* Header */}
         <div className="flex justify-between items-center gap-4 border-b border-tetiary/20 lg:pb-5 pb-3">
           <div className="flex flex-col gap-2 w-[65%]">
@@ -46,7 +46,7 @@ const SingleProjectSkeleton = () => {
         </div>
 
         {/* Table */}
-        <div className="bg-white w-[98%] mx-auto rounded-lg shadow overflow-hidden">
+        <div className="bg-white w-[98%] mx-auto rounded-xl shadow overflow-hidden">
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-tetiary/30">
               <tr>
@@ -96,4 +96,4 @@ const SingleProjectSkeleton = () => {
   );
 };
 
-export default SingleProjectSkeleton
+export default SingleProjectSkeleton;
