@@ -62,7 +62,7 @@ const SingleProject = () => {
       });
       if (res.status === 200) {
         toast.success("Task completed successful");
-        fetchProjectDetails();
+        fetchProjectDetails(id);
         setShowCompleteModal(false);
       }
     } catch (error) {
@@ -85,7 +85,7 @@ const SingleProject = () => {
       );
       if (res.status === 200) {
         toast.success("Task deleted successful");
-        fetchProjectDetails();
+        fetchProjectDetails(id);
         setShowDeleteModal(false);
       }
     } catch (error) {
