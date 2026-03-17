@@ -102,9 +102,11 @@ const AssignTask = ({ isOpen, onCancel, teamId, taskId, onAssigned }) => {
     <Modal customMode showClose onClose={onCancel}>
       <div
         ref={containerRef}
-        className="bg-white w-[380px] rounded-2xl px-3 py-4 max-h-[340px] overflow-y-auto styled-scrollbar pr-6 flex flex-col gap-4"
+        className="bg-white w-full max-w-md rounded-2xl px-4 py-5 max-h-[70vh] overflow-y-auto styled-scrollbar pr-5 flex flex-col gap-4 shadow-2xl ring-1 ring-black/5"
       >
-        <h3 className="text-sm lg:text-lg font-semibold">Assign task</h3>
+        <h3 className="text-base lg:text-lg font-semibold text-slate-900">
+          Assign task
+        </h3>
 
         {selectedMember && (
           <div className="bg-primary/10 text-primary px-3 py-2 rounded-xl text-sm flex items-center justify-between">
@@ -147,7 +149,7 @@ const AssignTask = ({ isOpen, onCancel, teamId, taskId, onAssigned }) => {
             <div className="absolute top-full mt-2 w-full bg-white border border-slate-200 rounded-xl shadow-lg z-[90] overflow-hidden max-h-[180px] overflow-y-auto styled-scrollbar">
               {fetchingMembers ? (
                 <div className="px-4 py-3 text-sm text-tetiary">
-                  Loading team members…
+                  Loading team members...
                 </div>
               ) : filteredMembers.length > 0 ? (
                 filteredMembers.map((user) => {
@@ -197,9 +199,9 @@ const AssignTask = ({ isOpen, onCancel, teamId, taskId, onAssigned }) => {
           )}
         </div>
 
-        <div className="flex justify-end items-center gap-4">
+        <div className="flex justify-end items-center gap-3">
           <button
-            className="bg-primary/10 px-3 py-2.5 cursor-pointer rounded-md"
+            className="bg-primary/10 px-4 py-2.5 cursor-pointer rounded-lg text-sm font-medium text-primary"
             disabled={assigning}
             onClick={onCancel}
           >
@@ -209,7 +211,7 @@ const AssignTask = ({ isOpen, onCancel, teamId, taskId, onAssigned }) => {
           <button
             disabled={!selectedMember || fetchingMembers || assigning}
             onClick={assignMember}
-            className="bg-primary text-white px-3 py-2.5 cursor-pointer rounded-md"
+            className="bg-primary text-white px-4 py-2.5 cursor-pointer rounded-lg text-sm font-semibold"
           >
             {assigning ? "Assigning..." : "Assign"}
           </button>

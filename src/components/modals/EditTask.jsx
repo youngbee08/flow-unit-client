@@ -43,11 +43,13 @@ const EditTask = ({ isOpen, onCancel, task, otherAction, optionalID }) => {
   });
   return (
     <Modal customMode showClose onClose={onCancel}>
-      <div className="bg-white w-[350px] rounded-xl px-3 py-4 max-h-[400px] overflow-y-auto styled-scrollbar pr-6 flex flex-col gap-4">
-        <h3 className="text-sm lg:text-lg font-semibold">Edit Task</h3>
+      <div className="bg-white w-full max-w-md rounded-2xl px-5 py-5 max-h-[75vh] overflow-y-auto styled-scrollbar pr-5 flex flex-col gap-4 shadow-2xl ring-1 ring-black/5">
+        <h3 className="text-base lg:text-lg font-semibold text-slate-900">
+          Edit Task
+        </h3>
         <form className="flex flex-col gap-4" onSubmit={formik.handleSubmit}>
           <div className="flex flex-col gap-2">
-            <label htmlFor="name" className="text-sm font-medium">
+            <label htmlFor="name" className="text-sm font-medium text-slate-800">
               Name
             </label>
             <input
@@ -67,7 +69,10 @@ const EditTask = ({ isOpen, onCancel, task, otherAction, optionalID }) => {
             )}
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="name" className="text-sm font-medium">
+            <label
+              htmlFor="description"
+              className="text-sm font-medium text-slate-800"
+            >
               Description
             </label>
             <textarea
@@ -87,10 +92,10 @@ const EditTask = ({ isOpen, onCancel, task, otherAction, optionalID }) => {
               </span>
             )}
           </div>
-          <div className="flex justify-end items-center gap-4">
+          <div className="flex justify-end items-center gap-3">
             <button
               disabled={formik.isSubmitting}
-              className="bg-primary/10 px-3 py-2.5 cursor-pointer rounded-md"
+              className="bg-primary/10 px-4 py-2.5 cursor-pointer rounded-lg text-sm font-medium text-primary"
               onClick={() => {
                 onCancel();
               }}
@@ -100,7 +105,7 @@ const EditTask = ({ isOpen, onCancel, task, otherAction, optionalID }) => {
             <button
               type="submit"
               disabled={formik.isSubmitting}
-              className="bg-primary text-white px-3 py-2.5 cursor-pointer rounded-md"
+              className="bg-primary text-white px-4 py-2.5 cursor-pointer rounded-lg text-sm font-semibold"
             >
               {formik.isSubmitting ? "Saving" : "Save"}
             </button>

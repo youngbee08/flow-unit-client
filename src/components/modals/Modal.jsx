@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 
 const Modal = ({
@@ -14,26 +14,42 @@ const Modal = ({
     return null;
   }
 
+  useEffect(() => {
+    if (!onClose) return undefined;
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
   return ReactDOM.createPortal(
-    <div className="fixed inset-0 bg-black/80 z-[9999] flex items-center justify-center p-4">
+    <div
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 sm:p-6"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) onClose?.();
+      }}
+    >
       {customMode ? (
         children
       ) : (
         <div
           className="
             bg-white
-            md:p-8 p-4
-            lg:w-1/2 md:w-3/4 w-full
-            rounded-xl relative
-            max-h-[90vh] overflow-y-auto
+            md:p-8 p-5
+            w-full max-w-2xl
+            rounded-2xl relative
+            max-h-[85vh] overflow-y-auto
+            shadow-2xl ring-1 ring-black/5
           "
+          onMouseDown={(event) => event.stopPropagation()}
         >
           {showClose && (
             <button
               onClick={onClose}
               type="button"
               className="
-                absolute md:top-8 md:right-8 top-4 right-4
+                absolute md:top-6 md:right-6 top-4 right-4
                 text-[#122239]
                 hover:text-[#757E8D]
                 transition-colors cursor-pointer

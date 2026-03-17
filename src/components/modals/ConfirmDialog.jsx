@@ -14,20 +14,22 @@ const ConfirmDialog = ({
 
   return (
     <Modal onClose={onCancel}>
-      <div className="p-4 text-center">
-        <h4 className="text-xl font-semibold mb-4">{title}</h4>
-        <p className="text-pryClr mb-6">{message}</p>
-        <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
+      <div className="p-5 text-center">
+        <h4 className="text-lg sm:text-xl font-semibold mb-3 text-slate-900">
+          {title}
+        </h4>
+        <p className="text-tetiary text-sm sm:text-base mb-6">{message}</p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
           <button
             onClick={onCancel}
-            className="w-full md:w-1/2 h-[50px] rounded-xl border border-gray-300 text-gray-600 hover:bg-gray-100 transition cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full sm:w-1/2 h-[46px] rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 transition cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 text-sm font-medium"
             disabled={isLoading}
           >
             {cancelText}
           </button>
           <button
             onClick={onConfirm}
-            className="w-full md:w-1/2 h-[50px] bg-primary text-white rounded-xl hover:bg-pryClr/90 transition cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full sm:w-1/2 h-[46px] bg-primary text-white rounded-xl hover:bg-primary/90 transition cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 text-sm font-semibold"
             disabled={isLoading}
           >
             {isLoading ? "Please wait..." : confirmText}

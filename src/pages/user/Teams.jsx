@@ -10,6 +10,7 @@ import {
   Clock,
   FolderOpen,
 } from "lucide-react";
+import { RiDeleteBinLine, RiRadioButtonLine } from "react-icons/ri";
 import { toast } from "sonner";
 import { useUser } from "../../contexts/UserContext";
 import NewTeam from "../../components/modals/NewTeam";
@@ -18,6 +19,7 @@ import InviteToTeam from "../../components/modals/InviteToTeam";
 import { GoPeople } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import TeamPageSkeleton from "../../components/skeletons/TeamPageSkeleton";
+import ConfirmDialog from "../../components/modals/ConfirmDialog";
 
 const Teams = () => {
   const { user: contextUser } = useUser();
@@ -27,6 +29,9 @@ const Teams = () => {
   const [teamInfo, setTeamInfo] = useState(null);
   const [fetchingTeamInfo, setFetchingTeamInfo] = useState(false);
   const [showInviteModal, setShowInviteModal] = useState(false);
+  const [selectedMember, setSelectedMember] = useState(null);
+  const [deleteMember, setDeleteMember] = useState(false);
+  const [deletingMember, setDeletingMember] = useState(false);
   const navigate = useNavigate();
   const fetchTeamInfo = async () => {
     setFetchingTeamInfo(true);
@@ -44,6 +49,30 @@ const Teams = () => {
       toast.error(errmessage);
     } finally {
       setFetchingTeamInfo(false);
+    }
+  };
+
+  const removeMember = async () => {
+    setDeletingMember(true);
+    try {
+      const res = await api.post(
+        `/user/dismiss-member?member=${selectedMember._id}`,
+      );
+      if (res.status === 200) {
+        toast.success(`${selectedMember.name} has been removed from your team`);
+        setSelectedMember(null);
+        setDeleteMember(false);
+        fetchTeamInfo();
+      }
+    } catch (error) {
+      console.log("error-removing-member", error);
+      const errMessage =
+        error.response.data.message ||
+        error.message ||
+        "Failed to remove member";
+      toast.error(errMessage);
+    } finally {
+      setDeletingMember(false);
     }
   };
 
@@ -81,7 +110,7 @@ const Teams = () => {
                   <div className="bg-tetiary/30 rounded-full text-tetiary p-6 text-xl lg:text-4xl">
                     <GoPeople />
                   </div>
-                  <h3 className="text-sm lg:text-[16px] font-semibold flex items-center gap-1">
+                  <h3 className="text-sm lg:text-[16px] font-semibold flex items-center gap-0">
                     No members yet
                     {teamInfo && (
                       <span
@@ -97,8 +126,9 @@ const Teams = () => {
                 <div className="flex flex-col gap-5 max-h-[330px] overflow-y-auto styled-scrollbar pr-4">
                   {teamInfo?.members.map((member, idx) => (
                     <div
-                      key={idx}
-                      className="flex items-center justify-between"
+                      key={member.id ?? idx}
+                      className="flex items-center justify-between hover:bg-primary/10 cursor-pointer rounded-md px-2 py-2"
+                      onMouseOver={() => setSelectedMember(member)}
                     >
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden text-red-700 font-medium text-lg">
@@ -117,15 +147,35 @@ const Teams = () => {
                           </p>
                         </div>
                       </div>
-                      <div
-                        className={`flex items-center gap-2 ${
-                          member.isDisabled ? "text-gray-500" : "text-primary"
-                        } text-sm font-medium`}
-                      >
-                        <Clock size={18} />
-                        <span>
-                          {member.isDisabled ? "UNAVAILABLE" : "AVAILABLE"}
-                        </span>
+
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`hidden lg:flex items-center gap-2 ${
+                            member.isDisabled ? "text-gray-500" : "text-primary"
+                          } text-sm font-medium`}
+                        >
+                          {member.isDisabled ? (
+                            <Clock size={18} />
+                          ) : (
+                            <RiRadioButtonLine size={18} />
+                          )}
+                          <span>
+                            {member.isDisabled ? "UNAVAILABLE" : "AVAILABLE"}
+                          </span>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setDeleteMember(true);
+                          }}
+                          className="p-2 rounded-md text-red-600 hover:bg-red-50 hover:text-red-700 transition cursor-pointer"
+                          aria-label={`Remove ${member.name}`}
+                          title={`Remove ${member.name}`}
+                        >
+                          <RiDeleteBinLine size={18} />
+                        </button>
                       </div>
                     </div>
                   ))}
@@ -202,6 +252,14 @@ const Teams = () => {
         <InviteToTeam
           isOpen={showInviteModal}
           onCancel={() => setShowInviteModal(false)}
+        />
+        <ConfirmDialog
+          isOpen={deleteMember}
+          onCancel={() => setDeleteMember(false)}
+          title={`Remove "${selectedMember?.name}" from your team?`}
+          message={`Confirming this button will remove "${selectedMember?.name}" from your team permanently.`}
+          onConfirm={removeMember}
+          isLoading={deletingMember}
         />
       </>
     )

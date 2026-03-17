@@ -115,9 +115,9 @@ const App = () => {
               <DashboardsLayout
                 children={<TaskForm />}
                 pageName={"New Task"}
-                pageInfo={
-                  "Use the form below to add a new task to your project. Provide clear and accurate details to help track progress, assign responsibility, and keep everything organized. Once added, this task will become part of your project workflow and can be updated or managed at any time."
-                }
+                // pageInfo={
+                //   "Use the form below to add a new task to your project. Provide clear and accurate details to help track progress, assign responsibility, and keep everything organized. Once added, this task will become part of your project workflow and can be updated or managed at any time."
+                // }
               />
             </ProtectedRoute>
           }

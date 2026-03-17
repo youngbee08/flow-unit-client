@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import api from "../../helpers/api";
 import { Link, useNavigate } from "react-router-dom";
 import ConfirmDialog from "../../components/modals/ConfirmDialog";
+import { HiMiniUserGroup } from "react-icons/hi2";
 
 const ProfileSettings = () => {
   const { user: stateUser } = useUser();
@@ -128,9 +129,9 @@ const ProfileSettings = () => {
       const res = await api.delete("/user/deleteAccount");
       if (res.status === 200) {
         toast.success("Account deleted successfully");
-        localStorage.removeItem("dashboardMetrics")
-        localStorage.removeItem("user")
-        localStorage.removeItem("token")
+        localStorage.removeItem("dashboardMetrics");
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
         navigate("/");
       }
     } catch (error) {
@@ -405,10 +406,11 @@ const ProfileSettings = () => {
 
                   <Link
                     to="/dashboard/team"
-                    className="inline-flex px-10 py-3.5 bg-primary text-white font-semibold 
-               rounded-xl hover:bg-primary/90 transition shadow-sm"
+                    className="px-10 py-3.5 bg-primary text-white font-semibold 
+               rounded-xl hover:bg-primary/90 transition shadow-sm flex items-center gap-1 w-fit mx-auto"
                   >
-                    Create a Team →
+                    <HiMiniUserGroup />
+                    Create a Team
                   </Link>
                 </div>
               </>
@@ -441,8 +443,9 @@ const ProfileSettings = () => {
             Developed with passion by{" "}
             <a
               className="text-xs underline"
-              href="mailto:hello@zenithdevtech.name.ng
+              href="https://zenithdevtech.name.ng
 "
+              target="_blank"
             >
               Zenith Dev
             </a>{" "}

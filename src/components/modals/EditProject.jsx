@@ -45,14 +45,16 @@ const EditProject = ({ isOpen, onCancel, project, otherAction }) => {
   });
   return (
     <Modal customMode showClose onClose={onCancel}>
-      <div className="bg-white w-[460px] rounded-xl px-3 py-4 max-h-[400px] flex flex-col gap-4">
-        <h3 className="text-sm lg:text-lg font-semibold">Edit Project</h3>
+      <div className="bg-white w-full max-w-lg rounded-2xl px-5 py-5 max-h-[75vh] flex flex-col gap-4 shadow-2xl ring-1 ring-black/5">
+        <h3 className="text-base lg:text-lg font-semibold text-slate-900">
+          Edit Project
+        </h3>
         <form
           className="flex flex-col gap-4 overflow-y-auto styled-scrollbar pr-3"
           onSubmit={formik.handleSubmit}
         >
           <div className="flex flex-col gap-2">
-            <label htmlFor="name" className="text-sm font-medium">
+            <label htmlFor="name" className="text-sm font-medium text-slate-800">
               Name
             </label>
             <input
@@ -72,7 +74,10 @@ const EditProject = ({ isOpen, onCancel, project, otherAction }) => {
             )}
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="description" className="text-sm font-medium">
+            <label
+              htmlFor="description"
+              className="text-sm font-medium text-slate-800"
+            >
               Description
             </label>
             <textarea
@@ -93,7 +98,10 @@ const EditProject = ({ isOpen, onCancel, project, otherAction }) => {
             )}
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="updateMessage" className="text-sm font-medium">
+            <label
+              htmlFor="updateMessage"
+              className="text-sm font-medium text-slate-800"
+            >
               Update Message
             </label>
             <textarea
@@ -113,10 +121,10 @@ const EditProject = ({ isOpen, onCancel, project, otherAction }) => {
               </span>
             )}
           </div>
-          <div className="flex justify-end items-center gap-4">
+          <div className="flex justify-end items-center gap-3">
             <button
               disabled={formik.isSubmitting}
-              className="bg-primary/10 px-3 py-2.5 cursor-pointer rounded-md"
+              className="bg-primary/10 px-4 py-2.5 cursor-pointer rounded-lg text-sm font-medium text-primary"
               onClick={() => {
                 onCancel();
               }}
@@ -126,7 +134,7 @@ const EditProject = ({ isOpen, onCancel, project, otherAction }) => {
             <button
               type="submit"
               disabled={formik.isSubmitting}
-              className="bg-primary text-white px-3 py-2.5 cursor-pointer rounded-md"
+              className="bg-primary text-white px-4 py-2.5 cursor-pointer rounded-lg text-sm font-semibold"
             >
               {formik.isSubmitting ? "Saving" : "Save"}
             </button>

@@ -25,7 +25,7 @@ const TaskOption = ({ onCancel, isOpen, projecctID }) => {
 
   return (
     <Modal customMode showClose onClose={onCancel}>
-      <div className="bg-white w-[92%] sm:w-[520px] rounded-2xl flex flex-col gap-5 p-6">
+      <div className="bg-white w-full max-w-xl rounded-2xl flex flex-col gap-5 p-6 shadow-2xl ring-1 ring-black/5">
         <div className="text-center">
           <h2 className="text-base sm:text-lg font-bold text-slate-900">
             Choose an option

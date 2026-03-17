@@ -26,7 +26,7 @@ const TeamPageSkeleton = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="hidden lg:flex items-center gap-2">
                   <div className="w-4 h-4 bg-gray-200 rounded-full" />
                   <div className="h-3 w-24 bg-gray-200 rounded" />
                 </div>

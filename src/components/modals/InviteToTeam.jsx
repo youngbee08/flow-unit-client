@@ -59,8 +59,10 @@ const InviteToTeam = ({ isOpen, onCancel }) => {
 
   return (
     <Modal customMode showClose onClose={onCancel}>
-      <div className="bg-white w-[350px] rounded-2xl px-3 py-4 max-h-[300px] overflow-y-auto styled-scrollbar pr-6 flex flex-col gap-4">
-        <h3 className="text-sm lg:text-lg font-semibold">Invite new member</h3>
+      <div className="bg-white w-full max-w-md rounded-2xl px-5 py-5 max-h-[70vh] overflow-y-auto styled-scrollbar pr-5 flex flex-col gap-4 shadow-2xl ring-1 ring-black/5">
+        <h3 className="text-base lg:text-lg font-semibold text-slate-900">
+          Invite new member
+        </h3>
         <div className="flex flex-col gap-9">
           <div className="relative group">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-tetiary group-focus-within:text-primary transition-colors">
@@ -77,10 +79,10 @@ const InviteToTeam = ({ isOpen, onCancel }) => {
               }}
             />
             {username && !selectedUser && (
-              <div className="absolute top-full mt-2 w-full bg-white border border-slate-200 rounded-xl shadow-lg z-[90] overflow-hidden">
+              <div className="absolute top-full mt-2 w-full bg-white border border-slate-200 rounded-xl shadow-lg z-[90] overflow-hidden max-h-[200px] overflow-y-auto styled-scrollbar">
                 {fetchingUsers ? (
                   <div className="px-4 py-3 text-sm text-tetiary">
-                    Searching…
+                    Searching...
                   </div>
                 ) : users.length > 0 ? (
                   users.map((user) => (
@@ -121,9 +123,9 @@ const InviteToTeam = ({ isOpen, onCancel }) => {
               </div>
             )}
           </div>
-          <div className="flex justify-end items-center gap-4">
+          <div className="flex justify-end items-center gap-3">
             <button
-              className="bg-primary/10 px-3 py-2.5 cursor-pointer rounded-md"
+              className="bg-primary/10 px-4 py-2.5 cursor-pointer rounded-lg text-sm font-medium text-primary"
               disabled={invitingUser}
               onClick={() => {
                 onCancel();
@@ -134,7 +136,7 @@ const InviteToTeam = ({ isOpen, onCancel }) => {
             <button
               disabled={!selectedUser || fetchingUsers || invitingUser}
               onClick={inviteToTeam}
-              className="bg-primary text-white px-3 py-2.5 cursor-pointer rounded-md"
+              className="bg-primary text-white px-4 py-2.5 cursor-pointer rounded-lg text-sm font-semibold"
             >
               {invitingUser ? "Inviting..." : "Invite"}
             </button>

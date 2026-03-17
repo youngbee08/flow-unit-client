@@ -168,84 +168,88 @@ const SingleProject = () => {
   return (
     <>
       <div className="flex flex-col gap-9 lg:gap-5">
-        <div className="px-4 py-4.5 bg-white  rounded-xl w-full flex flex-col gap-4 shadow-lg">
-          <div className="flex justify-between items-start lg:items-center gap-4 border-b border-tetiary/20 lg:pb-5 pb-3">
-            <div className="flex flex-col gap-1 w-[65%]">
-              <h2 className="text-base md:text-xl lg:text-2xl font-bold">
+        <div className="w-full rounded-xl bg-white px-4 py-4.5 shadow-lg">
+          <div className="flex items-start justify-between gap-4 border-b border-tetiary/20 pb-3 lg:items-center lg:pb-5">
+            <div className="flex w-[65%] flex-col gap-1">
+              <h2 className="text-base font-bold md:text-xl lg:text-2xl">
                 {project.name}
               </h2>
-              <h5 className="text-xs lg:text-sm font-medium text-tetiary hidden md:flex lg:flex">
-                {project.description.length > 40
-                  ? `${project.description.slice(0, 40)}...`
-                  : project.description}
-              </h5>
-              <h5 className="text-xs lg:text-sm font-medium text-tetiary sm:flex flex lg:hidden md:hidden">
-                {project.description.length > 15
-                  ? `${project.description.slice(0, 15)}...`
-                  : project.description}
-              </h5>
+
+              <p className="text-xs font-medium text-tetiary md:text-sm">
+                <span className="hidden md:inline">
+                  {project.description.length > 150
+                    ? `${project.description.slice(0, 150)}...`
+                    : project.description}
+                </span>
+                <span className="md:hidden">
+                  {project.description.length > 70
+                    ? `${project.description.slice(0, 70)}...`
+                    : project.description}
+                </span>
+              </p>
             </div>
-            <div className="flex items-center gap-3 w-[35%] justify-end">
-              <button
-                className="bg-tetiary/10 border border-tetiary px-3 py-2 rounded-md cursor-pointer font-semibold hidden sm:flex md:flex lg:flex items-center gap-3"
-                onClick={() => setShowProjectEditModal(true)}
-              >
-                <FaPen size={13} />
-                Edit
-              </button>
-              <button
-                className="bg-red-600/10 border border-red-600/20 text-red-600 px-3 py-2 rounded-md cursor-pointer font-semibold hidden sm:flex md:flex lg:flex items-center gap-3"
-                onClick={() => setShowProjectDeleteModal(true)}
-              >
-                <FaTrash size={13} />
-                Delete
-              </button>
-              <button
-                className="bg-tetiary/10 border border-tetiary px-3 py-2 rounded-md cursor-pointer font-semibold flex sm:hidden md:hidden lg:hidden items-center gap-3"
-                onClick={() => setShowProjectEditModal(true)}
-              >
-                <FaPen size={13} />
-              </button>
-              <button
-                className="bg-red-600/10 border border-red-600/20 text-red-600 px-3 py-2 rounded-md cursor-pointer font-semibold flex sm:hidden md:hidden lg:hidden items-center gap-3"
-                onClick={() => setShowProjectDeleteModal(true)}
-              >
-                <FaTrash size={13} />
-              </button>
+
+            <div className="flex w-[35%] justify-end gap-2">
+              {[
+                {
+                  label: "Edit",
+                  icon: <FaPen size={13} />,
+                  onClick: () => setShowProjectEditModal(true),
+                  base: "bg-tetiary/10 border-tetiary",
+                  text: "",
+                },
+                {
+                  label: "Delete",
+                  icon: <FaTrash size={13} />,
+                  onClick: () => setShowProjectDeleteModal(true),
+                  base: "bg-red-600/10 border-red-600/20 text-red-600",
+                  text: "text-red-600",
+                },
+              ].map((action) => (
+                <button
+                  key={action.label}
+                  className={`flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-semibold ${action.base}`}
+                  onClick={action.onClick}
+                >
+                  {action.icon}
+                  <span className="hidden sm:inline">{action.label}</span>
+                </button>
+              ))}
             </div>
           </div>
-          <div className="flex lg:items-center gap-6 lg:gap-13 lg:justify-between md:justify-between w-full lg:flex-row flex-col md:flex-row">
-            <div className="flex flex-col gap-1 lg:w-1/2 md:w-1/2">
-              <div className="flex justify-between w-full">
-                <h2 className="text-sm lg:text-base font-semibold">
+
+          <div className="flex w-full flex-col gap-6 md:flex-row md:justify-between lg:items-center lg:gap-13 lg:justify-between">
+            <div className="flex flex-col gap-1 md:w-1/2 lg:w-1/2">
+              <div className="flex w-full justify-between">
+                <h2 className="text-sm font-semibold lg:text-base">
                   Project Progress
                 </h2>
-                <h2 className="text-xl lg:text-2xl font-bold">
+                <h2 className="text-xl font-bold lg:text-2xl">
                   {Math.round(+project.progress)}%
                 </h2>
               </div>
-              <div className="w-full">
-                <progress
-                  className="w-full h-2 rounded-full [&::-webkit-progress-value]:bg-primary [&::-webkit-progress-bar]:bg-gray-200 [&::-moz-progress-bar]:bg-primary"
-                  max={100}
-                  value={project.progress}
-                  aria-label={`Project progress: ${project.progress}%`}
-                />
-              </div>
+
+              <progress
+                className="h-2 w-full rounded-full [&::-webkit-progress-bar]:bg-gray-200 [&::-webkit-progress-value]:bg-primary [&::-moz-progress-bar]:bg-primary"
+                max={100}
+                value={project.progress}
+                aria-label={`Project progress: ${project.progress}%`}
+              />
             </div>
-            <div className="flex flex-col gap-0 w-1/2">
-              <h2 className="text-tetiary uppercase font-bold text-sm lg:text-base">
+
+            <div className="flex w-1/2 flex-col gap-0">
+              <h2 className="text-sm font-bold uppercase text-tetiary lg:text-base">
                 Timeline
               </h2>
               <div className="flex flex-col gap-1">
-                <h3 className="text-tetiary text-xs lg:text-sm font-semibold flex items-center gap-1">
+                <h3 className="flex items-center gap-1 text-xs font-semibold text-tetiary lg:text-sm">
                   <BsCalendar />
                   Created:{" "}
                   <span className="text-primary">
                     {formatSmartDate(project.createdAt)}
                   </span>
                 </h3>
-                <h3 className="text-tetiary text-xs lg:text-sm font-semibold flex items-center gap-1">
+                <h3 className="flex items-center gap-1 text-xs font-semibold text-tetiary lg:text-sm">
                   <BsCalendarX />
                   Due:{" "}
                   <span className="text-primary">
@@ -507,21 +511,21 @@ rounded-xl shadow-lg z-50
         onCancel={() => setShowEditModal(false)}
         isOpen={showEditModal}
         task={selectedTask}
-        otherAction={fetchProjectDetails}
+        otherAction={() => fetchProjectDetails(id)}
         optionalID={project._id}
       />
       <EditProject
         isOpen={showEditProjectModal}
         onCancel={() => setShowProjectEditModal(false)}
         project={project}
-        otherAction={fetchProjectDetails}
+        otherAction={() => fetchProjectDetails(id)}
       />
       <AssignTask
         isOpen={showAssignModal}
         onCancel={() => setShowAssignModal(false)}
         teamId={user.ownerOf}
         taskId={selectedTask?._id}
-        onAssigned={fetchProjectDetails}
+        onAssigned={() => fetchProjectDetails(id)}
       />
       <TaskOption
         isOpen={showOptionModal}
