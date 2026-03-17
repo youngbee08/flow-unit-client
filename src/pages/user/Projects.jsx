@@ -65,22 +65,22 @@ const Projects = () => {
   ) : projects.length === 0 ? (
     <div className="min-h-[85vh] flex flex-col items-center justify-center px-6">
       <div className="text-center max-w-lg">
-        <div className="relative inline-block mb-12">
-          <div className="absolute -left-4 -bottom-1 bg-primary p-3 rounded-full text-white text-sm font-bold">
+        <div className="relative inline-block mb-10">
+          <div className="absolute -left-3 -bottom-1 bg-primary p-2.5 rounded-full text-white text-xs font-bold">
             <FaCheck />
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-8 inline-block">
-            <div className="w-full mx-auto">
+          <div className="bg-white rounded-2xl p-7 inline-block">
+            <div className="w-full mx-auto text-primary">
               <GiPaperPlane className="text-2xl lg:text-4xl text-center" />
             </div>
           </div>
 
-          <div className="absolute -top-4 -right-8">
-            <button className="w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-lg hover:bg-primary transition">
+          <div className="absolute -top-3 -right-6">
+            <button className="w-10 h-10 bg-primary rounded-full flex items-center justify-center hover:bg-primary/90 transition">
               <svg
-                width="20"
-                height="20"
+                width="18"
+                height="18"
                 viewBox="0 0 20 20"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +88,7 @@ const Projects = () => {
                 <path
                   d="M10 4V16M4 10H16"
                   stroke="white"
-                  strokeWidth="3"
+                  strokeWidth="2.5"
                   strokeLinecap="round"
                 />
               </svg>
@@ -96,10 +96,10 @@ const Projects = () => {
           </div>
         </div>
 
-        <h2 className="text-base lg:text-2xl font-bold mb-4">
+        <h2 className="text-base lg:text-2xl font-bold mb-3 text-slate-900">
           No Projects Yet? Let's get started!
         </h2>
-        <p className="text-tetiary mb-10 leading-relaxed lg:text-sm text-xs">
+        <p className="text-tetiary mb-8 leading-relaxed lg:text-sm text-xs">
           It looks like your workspace is fresh. Create your first project to
           organize tasks, collaborate with your team, and track progress
           effectively.
@@ -107,12 +107,12 @@ const Projects = () => {
 
         <button
           onClick={() => navigate("/dashboard/projects/new")}
-          className="bg-primary text-white px-8 py-3 rounded-xl font-semibold hover:bg-primary transition flex items-center gap-3 mx-auto cursor-pointer shadow-lg text-xs lg:text-sm"
+          className="bg-primary text-white px-7 py-2.5 rounded-xl font-semibold hover:bg-primary/90 transition flex items-center gap-3 mx-auto cursor-pointer text-xs lg:text-sm"
         >
-          <div className="bg-white text-primary p-1 rounded-full">
+          <div className="bg-white/90 text-primary p-1 rounded-full">
             <svg
-              width="15"
-              height="15"
+              width="14"
+              height="14"
               viewBox="0 0 20 20"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

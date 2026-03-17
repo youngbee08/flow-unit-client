@@ -92,7 +92,7 @@ const BottomNav = () => {
       <nav
         className="
           fixed bottom-0 left-0 right-0 z-50
-          bg-primary rounded-t-2xl
+          bg-primary rounded-t-4xl
           px-2 sm:px-4 py-2 sm:py-1
           flex items-center justify-between
           shadow-lg
@@ -133,7 +133,7 @@ const BottomNav = () => {
         >
           <FaPlus className="text-lg sm:text-xl" />
 
-          <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-red-500 border-2 border-white" />
+          {/* <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-red-500 border-2 border-white" /> */}
         </button>
 
         <div className="flex flex-1 justify-around">
