@@ -2,6 +2,12 @@
   "redirects": [
     {
       "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "flowunitapp.vercel.app"
+        }
+      ],
       "destination": "https://app.flowunit.co/$1",
       "permanent": true
     }
