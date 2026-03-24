@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 
-const AutoRedirect = () => {
+const ClearCache = () => {
   useEffect(() => {
-    if (window.location.hostname === "flowunitapp.vercel.app") {
-      const newUrl =
-        "https://app.flowunit.co" +
-        window.location.pathname +
-        window.location.search +
-        window.location.hash;
-
-      window.location.href = newUrl;
+    // Clear service worker / cache storage if available
+    if ("caches" in window) {
+      caches.keys().then((names) => {
+        names.forEach((name) => caches.delete(name));
+      });
     }
+
+    // Force reload from server (bypass browser cache)
+    window.location.reload();
   }, []);
 
   return <Outlet />;
 };
 
-export default AutoRedirect;
+export default ClearCache;
