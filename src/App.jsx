@@ -22,6 +22,7 @@ import NotFound from "./pages/NotFound";
 import TaskGenerator from "./pages/user/TaskGenerator";
 import TaskSmartGenerator from "./pages/user/TaskSmartGenerator";
 import RedirectNotice from "./components/RedirectNotice";
+import PwaInstallPrompt from "./components/PwaInstallPrompt";
 // import AutoRedirect from "./components/AutoRedirect";
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
     <RedirectNotice />
   ) : (
     <>
+      <PwaInstallPrompt />
       <Routes>
         {/* <Route element={<AutoRedirect />}> */}
         <Route index element={<Login />} />
