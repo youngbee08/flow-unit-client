@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 
 const AutoRedirect = () => {
-  console.log(window.location.hostname);
-
   useEffect(() => {
     if (window.location.hostname === "flowunitapp.vercel.app") {
       const newUrl =
@@ -12,7 +10,7 @@ const AutoRedirect = () => {
         window.location.search +
         window.location.hash;
 
-      window.location.replace(newUrl);
+      window.location.href = newUrl;
     }
   }, []);
 

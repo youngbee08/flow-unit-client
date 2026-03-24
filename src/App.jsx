@@ -28,7 +28,7 @@ const App = () => {
     <>
       <Routes>
         <Route element={<AutoRedirect />}>
-          <Route index element={<Login />} />
+          <Route index element={<Login />} /> 
 
           <Route path="*" element={<NotFound />} />
           <Route path="/create-account" element={<Signup />} />
