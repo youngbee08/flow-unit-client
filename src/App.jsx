@@ -27,6 +27,7 @@ const App = () => {
     <>
       <Routes>
         <Route index element={<Login />} />
+
         <Route path="*" element={<NotFound />} />
         <Route path="/create-account" element={<Signup />} />
 
