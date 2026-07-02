@@ -1,7 +1,13 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Mail, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import api from "../../helpers/api";
 import assets from "../../assets/assets";
 
@@ -15,6 +21,8 @@ function VerifyEmail() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isResending, setIsResending] = useState(false);
   const [secondsLeft, setSecondsLeft] = useState(RESEND_SECONDS);
+  const [searchParams] = useSearchParams();
+  const currentUser = localStorage.getItem("current-auth");
 
   const inputsRef = useRef([]);
 
@@ -35,6 +43,23 @@ function VerifyEmail() {
 
     if (digit && i < OTP_LENGTH - 1) focusIndex(i + 1);
   };
+
+  const getUserEmail = useCallback(() => {
+    const userParams = searchParams.get("user");
+
+    if (currentUser && !userParams) {
+      searchParams.set("user", currentUser);
+    } else if (!currentUser && !userParams) {
+      toast.info("We can't verify your account now, please try again.");
+      navigate("/");
+    }else{
+      localStorage.setItem("current-auth", userParams);
+    }
+  }, [currentUser, searchParams, navigate]);
+
+  useEffect(() => {
+    getUserEmail();
+  }, [currentUser, getUserEmail]);
 
   const handleKeyDown = (i, e) => {
     if (e.key === "Backspace") {
@@ -204,8 +229,8 @@ function VerifyEmail() {
                 {isResending
                   ? "Resending..."
                   : secondsLeft > 0
-                  ? `Resend in ${formatTime(secondsLeft)}`
-                  : "Resend"}
+                    ? `Resend in ${formatTime(secondsLeft)}`
+                    : "Resend"}
               </button>
             </div>
           </form>

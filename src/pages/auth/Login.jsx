@@ -89,7 +89,9 @@ function Login() {
           error.response.data.message || error.message || "Failed to log in";
         toast.error(errMessage);
         if (errMessage === "Please verify your account before you login") {
-          navigate("/verify-account");
+          console.log(error.response.data.verification_path);
+          
+          navigate(error.response.data.verification_path || "/");
         }
       } finally {
         setSubmitting(false);
